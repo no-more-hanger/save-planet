@@ -25,6 +25,10 @@ public class SettingManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
+            // effect sound play
+            ButtonSound._buttonInstance.OnButtonAudio();
+
+            // inactivate object
             this.gameObject.SetActive(false);
         }
     }
@@ -43,6 +47,9 @@ public class SettingManager : MonoBehaviour
 
     public void BgmOnOffClick()
     {
+        // effect sound play
+        ButtonSound._buttonInstance.OnButtonAudio();
+
         bool value = GameStaticData._dataInstance.isBgm;
         GameStaticData._dataInstance.isBgm = !value;
         SettingOnOffText(!value, bgmText);
@@ -50,6 +57,9 @@ public class SettingManager : MonoBehaviour
 
     public void SoundOnOffClick()
     {
+        // effect sound play
+        ButtonSound._buttonInstance.OnButtonAudio();
+
         bool value = GameStaticData._dataInstance.isSound;
         GameStaticData._dataInstance.isSound = !value;
         SettingOnOffText(!value, soundText);
@@ -63,5 +73,13 @@ public class SettingManager : MonoBehaviour
     public void ChangeSoundSlider()
     {
         GameStaticData._dataInstance.soundVolume = soundSlider.value;
+    }
+
+    public void OnTogglePopup()
+    {
+        ButtonSound._buttonInstance.OnButtonAudio();
+        GameObject settingPopup = GameObject.Find("Canvas").transform.Find("SettingPopup").gameObject;
+        bool curActive = settingPopup.activeSelf;
+        settingPopup.SetActive(!curActive);
     }
 }

@@ -22,4 +22,18 @@ public class GameStaticData : MonoBehaviour
     {
         _dataInstance = this;
     }
+
+    private void Start()
+    {
+        var obj = FindObjectsOfType<GameStaticData>();
+
+        if (obj.Length == 1)
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }

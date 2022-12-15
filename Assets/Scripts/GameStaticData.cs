@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStaticData : MonoBehaviour
-{
+public class GameStaticData : MonoBehaviour {
     public static GameStaticData _dataInstance;
-    
+
     // background music on/off
     public bool isBgm = true;
 
@@ -18,21 +17,17 @@ public class GameStaticData : MonoBehaviour
     // effect sound volume;
     public float soundVolume = 1f;
 
-    void Awake()
-    {
+    void Awake() {
         _dataInstance = this;
     }
 
-    private void Start()
-    {
+    private void Start() {
         var obj = FindObjectsOfType<GameStaticData>();
 
-        if (obj.Length == 1)
-        {
+        if (obj.Length == 1) {
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
+        else {
             Destroy(gameObject);
         }
     }

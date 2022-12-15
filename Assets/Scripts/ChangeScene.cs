@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ChangeScene : MonoBehaviour
-{
-    public void OnLoadStage01Scene()
-    {
+public class ChangeScene : MonoBehaviour {
+    public void OnLoadStage01Scene() {
         SceneManager.LoadScene("Stage01Scene");
     }
 }

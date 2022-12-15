@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SettingManager : MonoBehaviour
-{
+public class SettingManager : MonoBehaviour {
     public TextMeshProUGUI bgmText, soundText;
     public Slider bgmSlider, soundSlider;
 
@@ -13,18 +12,15 @@ public class SettingManager : MonoBehaviour
     const string OFF = "OFF";
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start() {
         SettingOnOffText(GameStaticData._dataInstance.isBgm, bgmText);
         SettingOnOffText(GameStaticData._dataInstance.isSound, soundText);
         bgmSlider.value = GameStaticData._dataInstance.bgmVolume;
         soundSlider.value = GameStaticData._dataInstance.soundVolume;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.A)) {
             // effect sound play
             ButtonSound._buttonInstance.OnButtonAudio();
 
@@ -33,20 +29,16 @@ public class SettingManager : MonoBehaviour
         }
     }
 
-    void SettingOnOffText(bool value, TextMeshProUGUI text)
-    {
-        if (value)
-        {
+    void SettingOnOffText(bool value, TextMeshProUGUI text) {
+        if (value) {
             text.GetComponent<TextMeshProUGUI>().text = OFF;
         }
-        else
-        {
+        else {
             text.GetComponent<TextMeshProUGUI>().text = ON;
         }
     }
 
-    public void BgmOnOffClick()
-    {
+    public void BgmOnOffClick() {
         // effect sound play
         ButtonSound._buttonInstance.OnButtonAudio();
 
@@ -55,8 +47,7 @@ public class SettingManager : MonoBehaviour
         SettingOnOffText(!value, bgmText);
     }
 
-    public void SoundOnOffClick()
-    {
+    public void SoundOnOffClick() {
         // effect sound play
         ButtonSound._buttonInstance.OnButtonAudio();
 
@@ -65,18 +56,15 @@ public class SettingManager : MonoBehaviour
         SettingOnOffText(!value, soundText);
     }
 
-    public void ChangeBgmSlider()
-    {
+    public void ChangeBgmSlider() {
         GameStaticData._dataInstance.bgmVolume = bgmSlider.value;
     }
 
-    public void ChangeSoundSlider()
-    {
+    public void ChangeSoundSlider() {
         GameStaticData._dataInstance.soundVolume = soundSlider.value;
     }
 
-    public void OnTogglePopup()
-    {
+    public void OnTogglePopup() {
         ButtonSound._buttonInstance.OnButtonAudio();
         GameObject settingPopup = GameObject.Find("Canvas").transform.Find("SettingPopup").gameObject;
         bool curActive = settingPopup.activeSelf;

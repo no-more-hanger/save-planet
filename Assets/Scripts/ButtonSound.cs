@@ -19,16 +19,16 @@ public class ButtonSound : MonoBehaviour {
     }
 
     public void OnButtonAudio() {
-        audioSource.clip = buttonBgm;
         if (GameStaticData._dataInstance.isSound) {
+            audioSource.clip = buttonBgm;
             audioSource.volume = GameStaticData._dataInstance.soundVolume;
             audioSource.Play();
         }
     }
 
     public void OnAudio(AudioClip audioClip) {
-        audioSource.clip = audioClip;
         if (GameStaticData._dataInstance.isSound) {
+            audioSource.clip = audioClip;
             audioSource.volume = GameStaticData._dataInstance.soundVolume;
             audioSource.Play();
         }

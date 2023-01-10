@@ -1,10 +1,10 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player001 : BaseCharacter {
     private void Start() {
-        // »ı¼º
+        // ìƒì„±
         position = transform;
         speed = 1.0f;
         anim = GetComponent<Animator>();
@@ -13,10 +13,10 @@ public class Player001 : BaseCharacter {
         isGun = false;
     }
     private void Update() {
-        // ÀÌµ¿
+        // ì´ë™
         Move();
 
-        // ÃÑ
+        // ì´
         transform.Find("Gun").gameObject.SetActive(isGun);
     }
 }

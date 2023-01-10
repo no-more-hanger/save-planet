@@ -13,8 +13,6 @@ public class BaseCharacter : MonoBehaviour {
 
     public bool isGun;      // 총 소지 여부
 
-    private float dir = 1.0f;       // Run 하고나서의 방향 기억하기 위함
-
     // 이동
     public void Move() {
         float x = Input.GetAxisRaw("Horizontal");   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
@@ -27,13 +25,11 @@ public class BaseCharacter : MonoBehaviour {
         // Idle
         if (x == 0.0f) {
             anim.SetBool("isRun", false);
-            anim.SetFloat("DirX", dir); // left(0), right(1)
         }
         // Run
         else {
             anim.SetBool("isRun", true);
             anim.SetFloat("DirX", x);   // left(0), right(1)
-            dir = x;
         }
 
         position.Translate(new Vector3(moveX, moveY, 0));

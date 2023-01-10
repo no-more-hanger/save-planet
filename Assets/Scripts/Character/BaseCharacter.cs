@@ -1,24 +1,24 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour {
-    protected Transform position; // ÇöÀç À§Ä¡
+    protected Transform position; // í˜„ì¬ ìœ„ì¹˜
 
-    public float speed;     // ¼Óµµ
-    public float damage;    // µ¥¹ÌÁö
+    public float speed;     // ì†ë„
+    public float damage;    // ë°ë¯¸ì§€
 
-    public Animator anim;           // ¾Ö´Ï¸ŞÀÌ¼Ç
-    public SpriteRenderer clothes;  // ¿Ê
+    public Animator anim;           // ì• ë‹ˆë©”ì´ì…˜
+    public SpriteRenderer clothes;  // ì˜·
 
-    public bool isGun;      // ÃÑ ¼ÒÁö ¿©ºÎ
+    public bool isGun;      // ì´ ì†Œì§€ ì—¬ë¶€
 
-    // ÀÌµ¿
+    // ì´ë™
     public void Move() {
-        float x = Input.GetAxisRaw("Horizontal");   // "Horizontal" : ¿ì ¹æÇâÅ°(1), ÁÂ ¹æÇâÅ°(-1) ¸®ÅÏ
-        float y = Input.GetAxisRaw("Vertical");     // "Vertical"   : »ó ¹æÇâÅ°(1), ÇÏ ¹æÇâÅ°(-1) ¸®ÅÏ
+        float x = Input.GetAxisRaw("Horizontal");   // "Horizontal" : ìš° ë°©í–¥í‚¤(1), ì¢Œ ë°©í–¥í‚¤(-1) ë¦¬í„´
+        float y = Input.GetAxisRaw("Vertical");     // "Vertical"   : ìƒ ë°©í–¥í‚¤(1), í•˜ ë°©í–¥í‚¤(-1) ë¦¬í„´
 
-        // 1 ÇÁ·¹ÀÓ ´ç ÀÌµ¿°Å¸® °è»ê
+        // 1 í”„ë ˆì„ ë‹¹ ì´ë™ê±°ë¦¬ ê³„ì‚°
         float moveX = x * speed * Time.deltaTime;
         float moveY = y * speed * Time.deltaTime;
 
@@ -35,26 +35,26 @@ public class BaseCharacter : MonoBehaviour {
         position.Translate(new Vector3(moveX, moveY, 0));
     }
 
-    // ¼Óµµ Á¶Àı
+    // ì†ë„ ì¡°ì ˆ
     public void ControlSpeed(float variation) {
         speed += variation;
     }
 
-    // µ¥¹ÌÁö ÀÔÀ½
+    // ë°ë¯¸ì§€ ì…ìŒ
     public void Hurt(float hurt) {
         damage += hurt;
     }
 
-    // µ¥¹ÌÁö Ä¡·á
+    // ë°ë¯¸ì§€ ì¹˜ë£Œ
     public void Heal(float heal) {
         damage -= heal;
     }
 
-    // ÃÑ ¸Ş±â
+    // ì´ ë©”ê¸°
     public void PutOnGun() {
         isGun = true;
     }
-    // ÃÑ ³»·Á³õ±â
+    // ì´ ë‚´ë ¤ë†“ê¸°
     public void PutDownGun() {
         isGun = false;
     }

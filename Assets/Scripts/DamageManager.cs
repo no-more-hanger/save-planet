@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class DamageManager : MonoBehaviour {
-    Slider damageBarValue;  // µ¥¹ÌÁö¹Ù value
-    GameObject player;      // playerÀÇ µ¥¹ÌÁö °ª¿¡ Á¢±ÙÇÏ±â À§ÇØ ÅÂ±×·Î Ã£À½
-    float playerDamageValue;// playerÀÇ µ¥¹ÌÁö value
+    Slider damageBarValue;  // ë°ë¯¸ì§€ë°” value
+    GameObject player;      // playerì˜ ë°ë¯¸ì§€ ê°’ì— ì ‘ê·¼í•˜ê¸° ìœ„í•´ íƒœê·¸ë¡œ ì°¾ìŒ
+    float playerDamageValue;// playerì˜ ë°ë¯¸ì§€ value
 
     void Start() {
         damageBarValue = GetComponent<Slider>();
@@ -15,7 +15,7 @@ public class DamageManager : MonoBehaviour {
     void Update() {
         player = GameObject.FindWithTag("Player");
 
-        playerDamageValue = player.GetComponent<Player001>().damage; // Player001ÀÇ µ¥¹ÌÁö
+        playerDamageValue = player.GetComponent<Player001>().damage; // Player001ì˜ ë°ë¯¸ì§€
 
         damageBarValue.value = playerDamageValue;
     }

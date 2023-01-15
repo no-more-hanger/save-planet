@@ -104,11 +104,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -356162419, guid: 3d2ceb4de2a713147abc06da178fec62, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillMethod: 0
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -123,6 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8802029601485830162}
   - component: {fileID: 8802029601485830161}
+  - component: {fileID: 8107041978939831721}
   m_Layer: 5
   m_Name: DamageBar
   m_TagString: Untagged
@@ -198,12 +199,24 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8802029602638927713}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8107041978939831721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8802029601485830163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e75b7373e0b28c4e81fc9462075d92b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8802029602362168848
 GameObject:
   m_ObjectHideFlags: 0

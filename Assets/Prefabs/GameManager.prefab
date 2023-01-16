@@ -48,3 +48,4 @@ MonoBehaviour:
   isSound: 1
   bgmVolume: 1
   soundVolume: 1
+  currentStage: 1

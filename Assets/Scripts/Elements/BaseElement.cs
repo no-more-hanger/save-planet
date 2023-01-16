@@ -9,11 +9,11 @@ using UnityEngine;
 ///     - OnDestory() : game effect
 /// </summary>
 public class BaseElement : MonoBehaviour {
-    public GameObject player;
+    protected GameObject player;
 
     [Header("SETTING for Effect on destroy")]
-    public AudioClip soundEffect = null;   // when destroyed.
-    public ParticleSystem particle = null; // when destroyed.
+    [SerializeField] protected AudioClip soundEffect = null;   // when destroyed.
+    [SerializeField] protected ParticleSystem particle = null; // when destroyed.
 
     private float destroyDistance = 5.0f;
 

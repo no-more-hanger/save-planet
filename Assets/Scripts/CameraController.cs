@@ -7,11 +7,11 @@ public class CameraController : MonoBehaviour {
     private float delay = 0.99f;
 
     [SerializeField]
-    private Transform _target;
+    private Transform target;
 
     public void Update() {
-        if (_target != null) {
-            Vector2 next = Vector3.Lerp(transform.position, _target.position, delay);
+        if (target != null) {
+            Vector2 next = Vector3.Lerp(transform.position, target.position, delay);
 
             transform.position = new Vector3(transform.position.x, next.y) + offset;
         }
@@ -32,6 +32,6 @@ public class CameraController : MonoBehaviour {
     }
 
     public void SetTarget(Transform target) {
-        _target = target;
+        this.target = target;
     }
 }

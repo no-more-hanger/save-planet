@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-    public Vector3 offset = new Vector3(0, 0, -10);
+    private Vector3 offset = new Vector3(0, 0, -10);
+    private float delay = 0.99f;
+
     [SerializeField]
     private Transform _target;
 
     public void Update() {
         if (_target != null) {
-            Vector2 next = Vector3.Lerp(transform.position, _target.position, 0.99f);
+            Vector2 next = Vector3.Lerp(transform.position, _target.position, delay);
 
             transform.position = new Vector3(transform.position.x, next.y) + offset;
         }

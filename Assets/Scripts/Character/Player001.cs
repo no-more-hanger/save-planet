@@ -10,15 +10,22 @@ public class Player001 : BaseCharacter {
         rigidbody = GetComponent<Rigidbody2D>();
         position = transform;
 
-        speed = 2f;
+        originSpeed = 2f;
+        speed = originSpeed;
+        //itemSpeed = 3.5f;
+
         damage = 0;
         isGun = false;
-        balloonCnt = 0;
+        balloonCnt = 2;
     }
     private void Update() {
         // 이동
         Move();
 
+        // 상태 관리
         StateUpdate();
+
+        // 아이템
+        transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 ? true : false);
     }
 }

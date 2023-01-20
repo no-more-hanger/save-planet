@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +22,7 @@ public class SettingManager : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.A)) {
             // effect sound play
-            ButtonSound._buttonInstance.OnButtonAudio();
+            SoundManager._soundInstance.OnButtonAudio();
 
             // inactivate object
             this.gameObject.SetActive(false);
@@ -40,7 +40,7 @@ public class SettingManager : MonoBehaviour {
 
     public void BgmOnOffClick() {
         // effect sound play
-        ButtonSound._buttonInstance.OnButtonAudio();
+        SoundManager._soundInstance.OnButtonAudio();
 
         bool value = GameStaticData._dataInstance.isBgm;
         GameStaticData._dataInstance.isBgm = !value;
@@ -49,7 +49,7 @@ public class SettingManager : MonoBehaviour {
 
     public void SoundOnOffClick() {
         // effect sound play
-        ButtonSound._buttonInstance.OnButtonAudio();
+        SoundManager._soundInstance.OnButtonAudio();
 
         bool value = GameStaticData._dataInstance.isSound;
         GameStaticData._dataInstance.isSound = !value;
@@ -65,7 +65,7 @@ public class SettingManager : MonoBehaviour {
     }
 
     public void OnTogglePopup() {
-        ButtonSound._buttonInstance.OnButtonAudio();
+        SoundManager._soundInstance.OnButtonAudio();
         GameObject settingPopup = GameObject.Find("Canvas").transform.Find("SettingPopup").gameObject;
         bool curActive = settingPopup.activeSelf;
         settingPopup.SetActive(!curActive);

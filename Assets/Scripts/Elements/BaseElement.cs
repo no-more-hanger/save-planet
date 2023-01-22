@@ -39,9 +39,10 @@ public class BaseElement : MonoBehaviour {
     /// <param name="collision"></param>
     protected void OnCollisionEnter2D(Collision2D collision) {
         // play animation if exist
+        GetComponent<Collider2D>().enabled = false;
+        // play animation
         anim = GetComponent<Animator>();
         if (anim != null) {
-            GetComponent<Collider2D>().enabled = false; // only for items
             anim.SetTrigger("disappear_trig");
         }
         // give particle effect if exist
@@ -50,12 +51,10 @@ public class BaseElement : MonoBehaviour {
             collisionEffect.Play();
             Destroy(collisionEffect.gameObject, collisionEffect.main.duration);
         }
-
         // play sound effect
         if (soundEffect != null) {
             ButtonSound._buttonInstance.OnAudio(soundEffect);
         }
-        //GetComponent<SpriteRenderer>().enabled = false;
         Destroy(gameObject, destroyDelay);
     }
 }

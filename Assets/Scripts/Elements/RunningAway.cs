@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class RunningAway : MonoBehaviour {
     [Header("Speed")]
-    [SerializeField] protected float speed = 50.0f;
+    [SerializeField] private float speed = 50.0f;
+    [SerializeField] private float freezeDelay = 0.5f;
+
     void Start() {
-        Invoke("RunAway", 0.5f);
+        Invoke("RunAway", freezeDelay);
     }
     private void Update() {
         if (transform.position.x < -5) {

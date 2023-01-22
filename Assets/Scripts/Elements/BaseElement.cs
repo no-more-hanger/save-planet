@@ -14,6 +14,9 @@ public class BaseElement : MonoBehaviour {
     [Header("SETTING for Effect on destroy")]
     [SerializeField] protected AudioClip soundEffect = null;   // when destroyed.
     [SerializeField] protected ParticleSystem particle = null; // when destroyed.
+    [SerializeField] protected Animator anim = null;
+    [SerializeField] protected float destroyDelay = 0;
+
 
     private float destroyDistance = 5.0f;
 
@@ -34,15 +37,25 @@ public class BaseElement : MonoBehaviour {
     /// play sound effect & destory gameObject
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (soundEffect != null) {
-            ButtonSound._buttonInstance.OnAudio(soundEffect);
+    protected void OnCollisionEnter2D(Collision2D collision) {
+        // play animation if exist
+        anim = GetComponent<Animator>();
+        if (anim != null) {
+            GetComponent<Collider2D>().enabled = false; // only for items
+            anim.SetTrigger("disappear_trig");
         }
+        // give particle effect if exist
         if (particle != null) {
             ParticleSystem collisionEffect = Instantiate(particle, transform.position, transform.rotation);
             collisionEffect.Play();
-            Destroy(collisionEffect, collisionEffect.main.duration);
+            Destroy(collisionEffect.gameObject, collisionEffect.main.duration);
         }
-        Destroy(gameObject);
+
+        // play sound effect
+        if (soundEffect != null) {
+            ButtonSound._buttonInstance.OnAudio(soundEffect);
+        }
+        //GetComponent<SpriteRenderer>().enabled = false;
+        Destroy(gameObject, destroyDelay);
     }
 }

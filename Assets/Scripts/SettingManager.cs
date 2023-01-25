@@ -64,10 +64,20 @@ public class SettingManager : MonoBehaviour {
         GameStaticData._dataInstance.soundVolume = soundSlider.value;
     }
 
-    public void OnTogglePopup() {
+    public void OnTogglePopup(string popupName) {
         SoundManager._soundInstance.OnButtonAudio();
-        GameObject settingPopup = GameObject.Find("Canvas").transform.Find("SettingPopup").gameObject;
-        bool curActive = settingPopup.activeSelf;
-        settingPopup.SetActive(!curActive);
+        GameObject popup = GameObject.Find("Canvas").transform.Find(popupName).gameObject;
+        bool curActive = popup.activeSelf;
+        popup.SetActive(!curActive);
+    }
+
+    public void OnPauseGame() {
+        if(Time.timeScale == 0f) {  // current game paused -> restart
+            GameObject.FindWithTag("Player").GetComponent<Player001>().enabled = true;
+        }
+        else {  // current game ing -> pause
+            GameObject.FindWithTag("Player").GetComponent<Player001>().enabled = false;
+        }
+        Time.timeScale = (1f - Time.timeScale);
     }
 }

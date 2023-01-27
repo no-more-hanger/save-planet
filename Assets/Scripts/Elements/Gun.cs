@@ -2,9 +2,9 @@
 /// Gun class - example Item
 /// </summary>
 public class Gun : BaseElement {
-    Player001 playerScript;
+    BaseCharacter playerScript;
     private void Start() {
-        playerScript = this.player.GetComponent<Player001>();
+        playerScript = this.player.GetComponent<BaseCharacter>();
     }
 
     private void OnDestroy() {

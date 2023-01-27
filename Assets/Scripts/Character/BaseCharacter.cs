@@ -3,40 +3,66 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour {
-    private string LAYER_ENEMY = "Enemy";
-    private string LAYER_DISASTER = "Disaster";
-    private string LAYER_ITEM = "Item";
+    private int effectDuration = 100;       // 효과 지속 상태 | 1초
+    private float gravityScale = 0.5f;      // 밑으로 끌어내릴(중력) 크기 | transform으로 작용
+    private float noDamageTimer = 1f;       // 공격 받은 후, 무적 시간
 
-    private int duration = 100;// 효과 지속 상태
+    private Animator anim;                  // 애니메이션
+    private SpriteRenderer spriteRenderer;  // 외관
+    private Rigidbody2D rigidbody;
 
-    private float gravityScale = 0.5f;      // 중력 크기
+    private float originSpeed;              // 원래 속도
+    private float speed;                    // 현재 속도
 
-    protected Transform position; // 현재 위치
+    private float damage;                   // 데미지
+    private bool isGun;                     // 총 소지 여부
+    private int balloonCnt;                 // 소지한 풍선 개수
 
-    public float originSpeed;// 원래 속도
-    public float speed;     // 현재 속도
-    //public float itemSpeed;     // 아이템 먹은 속도
+    [SerializeField]
+    private GameObject balloonPrefab;       // 풍선 프리팹
 
-    public float damage;    // 데미지
+    [SerializeField]
+    private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 피 효과
 
-    public Animator anim;                   // 애니메이션
-    public SpriteRenderer spriteRenderer;   // 외관
+    private float itemTimer = 0f;           // 아이템 지속 시간
+    private void Start() {
+        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidbody = GetComponent<Rigidbody2D>();
 
-    public bool isGun;                      // 총 소지 여부
+        originSpeed = 2f;
+        speed = originSpeed;
 
-    protected int balloonCnt;               // 소지한 풍선 개수
-    public GameObject balloonPrefab;        // 풍선 프리팹
+        damage = 0;
+        isGun = false;
+        balloonCnt = 2;
+    }
 
-    protected float noDamageTimer = 1f;     // 무적 시간
-    protected Rigidbody2D rigidbody;
+    // class get, set
+    public float GetDamage() {
+        return damage;
+    }
+    public void SetItemTimer(float time) {
+        itemTimer = time;
+    }
+    public void SetSpeed(float variation) {
+        speed = variation;
+    }
 
-    public ParticleSystem effect;
+    private void Update() {
+        // 이동
+        Move();
 
-    private Vector2 damagedVelocity;        // 데미지 받았을 시, 튕겨나가는 방향
+        // 상태 관리
+        StateUpdate();
 
-    protected float itemTimer = 0f;           // 아이템 지속 시간
+        // 아이템 지속 시간 제어
+        itemTimer -= Time.deltaTime;
 
-    // 항상 업데이트 될 부분들
+        // 무적 시간 제어
+        noDamageTimer -= Time.deltaTime;
+    }
+
     protected void StateUpdate() {
         // 총 소지 여부에 따라 Gun 비/활성화
         transform.Find("Gun").gameObject.SetActive(isGun);
@@ -56,13 +82,10 @@ public class BaseCharacter : MonoBehaviour {
             balloonClone.transform.SetParent(transform.Find("Balloons"));
         }
 
-        // 무적 시간 제어
-        noDamageTimer -= Time.deltaTime;
-
-        // 아이템 지속 시간 제어
-        itemTimer -= Time.deltaTime;
+        // 아이템
+        transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 ? true : false);
         if (itemTimer <= 0) {
-            ControlSpeed(originSpeed);
+            SetSpeed(originSpeed);
         }
     }
 
@@ -86,7 +109,6 @@ public class BaseCharacter : MonoBehaviour {
         return respawnPosition;
     }
 
-
     // 이동
     public void Move() {
         // 이동 제어
@@ -107,45 +129,29 @@ public class BaseCharacter : MonoBehaviour {
             anim.SetFloat("DirX", x);   // left(0), right(1)
         }
         // Move
-        position.Translate(new Vector3(moveX, moveY, 0));
+        transform.Translate(new Vector3(moveX, moveY, 0));
 
         // 이동 범위 제어 : 카메라가 비추는 x 범위 내에서 move하도록 제어
         float height = Camera.main.orthographicSize;        // 화면 가운데로부터 위쪽 끝 or 아래쪽 끝까지의 범위
         float width = height * Screen.width / Screen.height;// 카메라가 비추는 영역의 가로의 절반
-        if (position.position.x < -width - 0.2f) {
-            position.position = new Vector3(width, position.position.y, 0);
-        }
-        if (position.position.x > width + 0.2f) {
-            position.position = new Vector3(-width, position.position.y, 0);
-        }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        int collsionLayer = collision.gameObject.layer;
-
-        // 장애물 || 재해
-        if (collsionLayer == LayerMask.NameToLayer(LAYER_ENEMY) || collsionLayer == LayerMask.NameToLayer(LAYER_DISASTER)) {
-            // 튕겨 나감
-            damagedVelocity = new Vector2(0, -1);    // 무조건 아래로 튀도록 초기화
-
-            // 장애물 || 재해보다 오른쪽에 있으면 오른쪽(1)으로, 왼쪽에 있으면 왼쪽(-1)으로 튀도록
-            damagedVelocity.x = (transform.position.x - collision.transform.position.x) > 0 ? 1 : -1;
-            //Hurt(10, collision.transform.position);                           // (임시) item에서 제어
+        Vector3 pos = transform.position;
+        if (pos.x < -width - 0.2f) {
+            transform.position = new Vector3(width, pos.y, 0);
         }
-        // 아이템
-        if (collsionLayer == LayerMask.NameToLayer(LAYER_ITEM)) {
-            Heal(50);                           // (임시) item에서 제어
+        if (pos.x > width + 0.2f) {
+            transform.position = new Vector3(-width, pos.y, 0);
         }
     }
 
     // 데미지 입음
-    public void Hurt(float hurt) {
+    public void Hurt(float hurt, Vector3 targetPos) {
         if (noDamageTimer > 0) return;      // 무적일 땐 return
 
         noDamageTimer = 1.0f;               // 무적 시작
         damage += hurt;                     // 데미지 입음
 
-        StartCoroutine(GetDamagedRoutine());// 데미지 입은 효과
+        StartCoroutine(GetDamagedRoutine(targetPos));// 데미지 입은 효과
 
         if (damage >= 100) {                // 죽음
             rigidbody.simulated = false;
@@ -165,28 +171,28 @@ public class BaseCharacter : MonoBehaviour {
         StartCoroutine(GetHealedRoutine());
     }
 
-
-    public IEnumerator GetDamagedRoutine() {
-        for (int i = 0; i <= duration; i++) {
+    public IEnumerator GetDamagedRoutine(Vector3 targetPos) {
+        for (int i = 0; i <= effectDuration; i++) {
             spriteRenderer.color = new Color(1, 0.01f * i, 0.01f * i);  // 빨간색으로 변함
 
-            Vector2 dv = damagedVelocity * (duration - i) * Time.deltaTime * 0.05f; // 튕겨나가는 정도
-            position.Translate(new Vector3(dv.x, dv.y, 0));
+            // 튕겨 나감
+            Vector2 velocy = new Vector2(0, -1);    // 무조건 아래로 튀도록 초기화
+
+            // 장애물 || 재해보다 오른쪽에 있으면 오른쪽(1)으로, 왼쪽에 있으면 왼쪽(-1)으로 튀도록
+            velocy.x = (transform.position.x - targetPos.x) > 0 ? 1 : -1;
+
+            Vector2 dv = velocy * (effectDuration - i) * Time.deltaTime * 0.05f; // 튕겨나가는 정도
+            transform.Translate(new Vector3(dv.x, dv.y, 0));
 
             yield return new WaitForSeconds(0.01f);
         }
     }
 
     public IEnumerator GetHealedRoutine() {
-        for (int i = 0; i <= duration; i++) {
+        for (int i = 0; i <= effectDuration; i++) {
             spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
             yield return new WaitForSeconds(0.01f);
         }
-    }
-
-    // 속도 조절
-    public void ControlSpeed(float variation) {
-        speed = variation;
     }
 
     // 총 메기
@@ -206,12 +212,11 @@ public class BaseCharacter : MonoBehaviour {
 
     // 풍선 제거
     public void RemoveBalloon(int cnt) {
-        if (balloonCnt <= 0) return;
-        balloonCnt -= cnt;
-    }
-
-    // 아이템 지속 시간
-    public void GetItemTimer(float time) {
-        itemTimer = time;
+        if (balloonCnt - cnt <= 0) {
+            balloonCnt = 0;
+        }
+        else {
+            balloonCnt -= cnt;
+        }
     }
 }

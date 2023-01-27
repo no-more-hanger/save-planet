@@ -5214,6 +5214,7 @@ GameObject:
   - component: {fileID: 2764558617851481441}
   - component: {fileID: 5237924438911877298}
   - component: {fileID: 1596983373074525067}
+  - component: {fileID: 7118100855455961924}
   m_Layer: 6
   m_Name: Character
   m_TagString: Player
@@ -5359,3 +5360,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7118100855455961924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8657997095670868523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a2da3a53b88a5849bad0e0a69cbe62d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  balloonPrefab: {fileID: 731978332613030603, guid: 87ffbb96a034ded43bfd23c0896f7112, type: 3}
+  effect: {fileID: 1348256350182750804}

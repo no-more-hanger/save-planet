@@ -15,7 +15,7 @@ public class DamageManager : MonoBehaviour {
     void Update() {
         player = GameObject.FindWithTag("Player");
 
-        playerDamageValue = player.GetComponent<Player001>().damage; // Player001의 데미지
+        playerDamageValue = player.GetComponent<BaseCharacter>().GetDamage(); // Character의 데미지
 
         damageBarValue.value = playerDamageValue;
     }

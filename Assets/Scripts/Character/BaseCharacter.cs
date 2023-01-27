@@ -35,7 +35,7 @@ public class BaseCharacter : MonoBehaviour {
 
         damage = 0;
         isGun = false;
-        balloonCnt = 2;
+        balloonCnt = 0;
     }
 
     // class get, set

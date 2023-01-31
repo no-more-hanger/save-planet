@@ -11,7 +11,7 @@ public class SettingManager : MonoBehaviour {
     const string ON = "On";
     const string OFF = "OFF";
 
-    private GameObject stageManager; // stage manager
+    private GameObject backgroundMusic; // background music 
 
     // Start is called before the first frame update
     void Awake() {
@@ -19,7 +19,7 @@ public class SettingManager : MonoBehaviour {
         SettingOnOffText(GameStaticData._dataInstance.isSound, soundText);
         bgmSlider.value = GameStaticData._dataInstance.bgmVolume;
         soundSlider.value = GameStaticData._dataInstance.soundVolume;
-        stageManager = GameObject.Find("StageManager");
+        backgroundMusic = GameObject.Find("BackgroundMusic");
     }
 
     private void Update() {
@@ -49,10 +49,10 @@ public class SettingManager : MonoBehaviour {
         GameStaticData._dataInstance.isBgm = !value;
 
         if (!value) { // on bgm
-            stageManager.GetComponent<BaseStage>().OnStartBgm();
+            backgroundMusic.GetComponent<BackgroundMusic>().OnStartBgm();
         }
         else { // off bgm
-            stageManager.GetComponent<BaseStage>().OnPauseBgm();
+            backgroundMusic.GetComponent<BackgroundMusic>().OnPauseBgm();
         }
 
         SettingOnOffText(!value, bgmText);
@@ -69,7 +69,7 @@ public class SettingManager : MonoBehaviour {
 
     public void ChangeBgmSlider() {
         GameStaticData._dataInstance.bgmVolume = bgmSlider.value;
-        stageManager?.GetComponent<BaseStage>().OnSetVolumeBgm();
+        backgroundMusic?.GetComponent<BackgroundMusic>().OnSetVolumeBgm();
     }
 
     public void ChangeSoundSlider() {

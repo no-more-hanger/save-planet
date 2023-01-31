@@ -19,33 +19,12 @@ public class BaseStage : MonoBehaviour
     [SerializeField] protected float minIntervalY, maxIntervalY; // interval between items
 
 
-    [Header("This is background music settings")]
-    [SerializeField] private AudioClip bgm;  // stage bgm
-    private AudioSource audioSource;
-
-
     protected void Awake() {
         player = GameObject.FindWithTag("Player");
-        audioSource = this.GetComponent<AudioSource>();
+        
         CreateBackground(); // create background
         CreateItems(); // create items
         FadeIn(fadeTime); // fade in
-        audioSource.clip = bgm; // set bgm
-        if (GameStaticData._dataInstance.isBgm) { // if bgm setting on, start bgm
-            OnStartBgm();
-        }
-    }
-
-    public void OnStartBgm() {
-        audioSource.Play();
-    }
-
-    public void OnSetVolumeBgm() {
-        audioSource.volume = GameStaticData._dataInstance.bgmVolume;
-    }
-
-    public void OnPauseBgm() {
-        audioSource.Pause();
     }
 
     // create background

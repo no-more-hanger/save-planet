@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ButtonSound : MonoBehaviour {
+public class SoundManager : MonoBehaviour {
     private AudioSource audioSource;
-    public static ButtonSound _buttonInstance;
+    public static SoundManager _soundInstance;
 
     public AudioClip buttonBgm;
 
     // Start is called before the first frame update
     void Awake() {
-        _buttonInstance = this;
+        _soundInstance = this;
     }
 
     private void Start() {

@@ -10,6 +10,7 @@ using UnityEngine;
 /// </summary>
 public class BaseElement : MonoBehaviour {
     protected GameObject player;
+    protected BaseCharacter playerScript;
 
     [Header("SETTING for Effect on destroy")]
     [SerializeField] protected AudioClip soundEffect = null;   // when destroyed.
@@ -22,6 +23,7 @@ public class BaseElement : MonoBehaviour {
 
     private void Awake() {
         player = GameObject.FindWithTag("Player");
+        playerScript = player.GetComponent<BaseCharacter>();
     }
 
     /// <summary>

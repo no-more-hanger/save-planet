@@ -12,7 +12,7 @@ public class Disaster : BaseElement {
 
     [Header("Adjust Gravity")]
     [SerializeField] private float gravityBound = 1.5f;
-    [SerializeField] private float gravityConstant = 0.3f;
+    [SerializeField] private float gravityConstant = 0.5f;
 
     [Header("Effect")]
     [SerializeField] private float scaleUpperBound = 2.5f;
@@ -31,17 +31,24 @@ public class Disaster : BaseElement {
     }
 
     private void OnDestroy() {
-        playerRb.velocity = Vector3.zero;
+        //Debug.Log("destory");
+        //playerScript.Hurt(30, transform.position);
+        //playerRb.velocity = Vector3.zero;
+    }
+
+    protected override void AdjustEffect() {
+        playerScript.Hurt(30, transform.position);
     }
 
     private void ApplyGravity(GameObject obj, Rigidbody2D rb) {
         float distance = Vector3.Distance(gameObject.transform.position, obj.transform.position);
-        Debug.Log(distance);
         // apply gravity caused by disaster
         if (distance < gravityBound) {
             // get unit vector for direction of Force
             Vector3 direction = (gameObject.transform.position - obj.transform.position).normalized;
-            rb.AddForce(direction * gravityConstant / (distance * distance));
+            Vector3 force = direction * gravityConstant / (distance * distance);
+            //rb.AddForce(force);
+            obj.transform.Translate(force * Time.deltaTime);
             if (transform.localScale.x < scaleUpperBound) {
                 changeScale(scaleChangingRate);
             }

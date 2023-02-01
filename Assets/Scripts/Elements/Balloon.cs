@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Balloon : BaseElement {
-    // Start is called before the first frame update
+    private int balloonCnt = 1;
+
     void Start() {
         destroyDelay = 2f;
+    }
+
+    protected override void AdjustEffect() {
+        playerScript.AddBalloon(balloonCnt);
     }
 }

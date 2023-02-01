@@ -2,10 +2,7 @@
 /// Gun class - example Item
 /// </summary>
 public class Gun : BaseElement {
-    private void Start() {
-    }
-
-    private void OnDestroy() {
+    protected override void AdjustEffect() {
         playerScript.PutOnGun();
     }
 }

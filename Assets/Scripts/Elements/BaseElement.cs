@@ -6,7 +6,7 @@ using UnityEngine;
 /// BaseElement - Top class of element(Item, Obstacle, Disaster)
 /// 
 /// Child Class should have
-///     - OnDestory() : game effect
+///     - AdjustEffect() : game effect
 /// </summary>
 public class BaseElement : MonoBehaviour {
     protected GameObject player;
@@ -24,6 +24,7 @@ public class BaseElement : MonoBehaviour {
     private void Awake() {
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<BaseCharacter>();
+        anim = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -36,14 +37,19 @@ public class BaseElement : MonoBehaviour {
     }
 
     /// <summary>
+    /// effect of each items
+    /// </summary>
+    protected virtual void AdjustEffect() { }
+
+    /// <summary>
     /// play sound effect & destory gameObject
     /// </summary>
     /// <param name="collision"></param>
     protected void OnCollisionEnter2D(Collision2D collision) {
         // play animation if exist
         GetComponent<Collider2D>().enabled = false;
+        AdjustEffect();
         // play animation
-        anim = GetComponent<Animator>();
         if (anim != null) {
             anim.SetTrigger("disappear_trig");
         }

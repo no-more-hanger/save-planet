@@ -17,6 +17,9 @@ public class GameStaticData : MonoBehaviour {
     // effect sound volume;
     public float soundVolume = 1f;
 
+    // current stage level
+    public int currentStage = 1; 
+
     void Awake() {
         _dataInstance = this;
     }

@@ -61,7 +61,7 @@ public class BaseElement : MonoBehaviour {
         }
         // play sound effect
         if (soundEffect != null) {
-            ButtonSound._buttonInstance.OnAudio(soundEffect);
+            SoundManager._soundInstance.OnAudio(soundEffect);
         }
         Destroy(gameObject, destroyDelay);
     }

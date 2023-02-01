@@ -4,30 +4,32 @@ using UnityEngine;
 
 public class Fish : BaseElement {
     [SerializeField] GameObject runningFish = null;
-    Rigidbody2D rb = null;
+    private float damage = 5;
+    private Vector3 direction;
 
     private void Start() {
         destroyDelay = 0;
-        transform.rotation = Quaternion.Euler(0, 180, 0);
-        rb = GetComponent<Rigidbody2D>();
-        rb.velocity = Vector2.right;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        direction = Vector3.left;
     }
 
     private void Update() {
+        transform.Translate(direction * Time.deltaTime);
+
         // fish movement (go right)
         if (transform.position.x < -2.5) {
             transform.rotation = Quaternion.Euler(0, 180, 0);
-            rb.velocity = Vector2.right;
-
         }
         // fish movement (go left)
         else if (transform.position.x > 2.5) {
             transform.rotation = Quaternion.Euler(0, 0, 0);
-            rb.velocity = Vector2.left;
         }
+    }
+    protected override void AdjustEffect() {
+        playerScript.Hurt(damage, transform.position);
     }
 
     private void OnDestroy() {
-        Instantiate(runningFish, transform.position, Quaternion.Euler(0, 0, 0));
+        Instantiate(runningFish, transform.position, transform.rotation);
     }
 }

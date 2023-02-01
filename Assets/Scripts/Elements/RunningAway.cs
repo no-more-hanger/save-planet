@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class RunningAway : MonoBehaviour {
     [Header("Speed")]
-    [SerializeField] private float speed = 50.0f;
+    [SerializeField] private float speed = 80.0f;
     [SerializeField] private float freezeDelay = 0.5f;
+    private Vector3 direction;
 
     void Start() {
         Invoke("RunAway", freezeDelay);
     }
     private void Update() {
+        transform.Translate(direction * Time.deltaTime * speed);
         if (transform.position.x < -5) {
             Destroy(gameObject);
         }
     }
     private void RunAway() {
-        GetComponent<Rigidbody2D>().velocity = Vector3.left * speed;
+        direction = Vector3.left;
     }
 }

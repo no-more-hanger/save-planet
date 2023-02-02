@@ -101,6 +101,8 @@ public class SettingManager : MonoBehaviour {
     public void OnContinueGame() {
         Time.timeScale = 1f;
         GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = true;
+        GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().SetIsMoveX(true);
+        GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().SetIsMoveY(true);
         GameObject.FindWithTag("Timer").GetComponent<TimerController>().StartTimer();
     }
 }

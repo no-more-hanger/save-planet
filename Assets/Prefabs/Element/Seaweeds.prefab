@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7527412082793669988}
   - component: {fileID: 1497589525}
   - component: {fileID: 1497589523}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Seaweeds
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -8,7 +8,6 @@ public class TimerController : MonoBehaviour {
 
     void Start() {
         stopwatch = new Stopwatch();
-        StartTimer();
         timeText = GetComponent<TextMeshProUGUI>();
         timeText.text = "00 : 00";
     }

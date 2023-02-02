@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BaseCharacter : MonoBehaviour {
+    private TimerController timerController;
+
     private int effectDuration = 100;       // 효과 지속 상태 | 1초
     private float gravityScale = 0.5f;      // 밑으로 끌어내릴(중력) 크기 | transform으로 작용
     private float noDamageTimer = 1f;       // 공격 받은 후, 무적 시간
@@ -50,6 +53,8 @@ public class BaseCharacter : MonoBehaviour {
         damage = 0;
         isGun = false;
         balloonCnt = 0;
+
+        timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
     }
 
     // class get, set
@@ -193,6 +198,7 @@ public class BaseCharacter : MonoBehaviour {
             effect.Play();                  // 스테이지 01 : 거품 이펙트
 
             Camera.main.GetComponent<CameraController>()?.SetTarget(null);
+
         }
         else {
             if (hurt > 10) {
@@ -249,6 +255,12 @@ public class BaseCharacter : MonoBehaviour {
             transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer) * floatingY);
             yield return new WaitForSeconds(0.01f);
         }
+
+        // stop time & show popup
+        timerController.StopTimer();
+        GameObject.Find("Canvas").transform.Find("DyingPopup").gameObject.SetActive(true);
+        GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
+        GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timerController.GetTimeString();
     }
 
     public IEnumerator GetHealedRoutine() {

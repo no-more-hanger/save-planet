@@ -115,6 +115,12 @@ public class BaseStage : MonoBehaviour
         Invoke(nameof(OnLoadNextScene), fadeTime);
     }
 
+    // get stage length
+    public float GetStageHeight() {
+        float oneHeight = backgroundPrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.y * backgroundPrefabs[0].GetComponent<Transform>().localScale.y;
+        return backgroundNum * oneHeight;
+    }
+
     // detect end stage (maybe this script apply in BasePlayer.cs)
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Goal")) {

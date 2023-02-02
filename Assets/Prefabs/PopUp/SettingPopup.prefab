@@ -591,6 +591,7 @@ MonoBehaviour:
   soundText: {fileID: 1273702874150724668}
   bgmSlider: {fileID: 1513528858401050049}
   soundSlider: {fileID: 1513528858480966996}
+  countdownObj: {fileID: 5930432527969928256, guid: 81239e02d438ea544a73e5978ac83dd3, type: 3}
 --- !u!1 &1513528857906241921
 GameObject:
   m_ObjectHideFlags: 0

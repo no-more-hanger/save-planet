@@ -34,7 +34,7 @@ public class BaseCharacter : MonoBehaviour {
         originSpeed = 2f;
         speed = originSpeed;
 
-        damage = 90;
+        damage = 0;
         isGun = false;
         balloonCnt = 0;
     }

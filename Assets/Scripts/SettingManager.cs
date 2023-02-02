@@ -84,11 +84,11 @@ public class SettingManager : MonoBehaviour {
     }
 
     public void OnPauseGame() {
-        if(Time.timeScale == 0f) {  // current game paused -> restart
-            GameObject.FindWithTag("Player").GetComponent<Player001>().enabled = true;
+        if (Time.timeScale == 0f) {  // current game paused -> restart
+            GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = true;
         }
         else {  // current game ing -> pause
-            GameObject.FindWithTag("Player").GetComponent<Player001>().enabled = false;
+            GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = false;
         }
         Time.timeScale = (1f - Time.timeScale);
     }

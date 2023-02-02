@@ -42,9 +42,6 @@ public class BaseCharacter : MonoBehaviour {
     public float GetDamage() {
         return damage;
     }
-    public void SetItemTimer(float time) {
-        itemTimer = time;
-    }
     public void SetSpeed(float variation) {
         speed = variation;
     }
@@ -169,6 +166,11 @@ public class BaseCharacter : MonoBehaviour {
     public void Heal(float heal) {
         damage -= heal;
         StartCoroutine(GetHealedRoutine());
+    }
+
+    public void SpeedUp(float duration, float variation) {
+        itemTimer = duration;
+        speed = variation;
     }
 
     public IEnumerator GetDamagedRoutine(Vector3 targetPos) {

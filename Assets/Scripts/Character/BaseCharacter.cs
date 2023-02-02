@@ -23,9 +23,18 @@ public class BaseCharacter : MonoBehaviour {
     private bool isBalloon;                 // 풍선 화면에 보여줄지 여부
 
     [SerializeField]
-    private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 피 효과
+    private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 거품 or 피 효과
 
     private float itemTimer = 0f;           // 아이템 지속 시간
+
+    [SerializeField]
+    public AnimationCurve dieAnimCurve;   // 죽을 때, 아래로 떨어지는 애니메이션을 위한 효과
+    private float floatingY = -0.25f;
+    private float timer = 0.0f;
+    private float posX, posY;
+    //private float loopTime = 0.5f;
+    //private float mult = 1.0f;
+
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -51,6 +60,9 @@ public class BaseCharacter : MonoBehaviour {
     }
 
     private void Update() {
+        // 죽음
+        if (damage >= 100) { return; }
+
         // 이동
         Move();
 
@@ -154,16 +166,17 @@ public class BaseCharacter : MonoBehaviour {
         noDamageTimer = 1.0f;               // 무적 시작
         damage += hurt;                     // 데미지 입음
 
-        StartCoroutine(GetDamagedRoutine(targetPos));// 데미지 입은 효과
-
-        if (damage >= 100) {                // 죽음
-            rigidbody.simulated = false;
-            spriteRenderer.enabled = false;
+        if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
+            rigidbody.simulated = false;
+            StartCoroutine(Die());                      // 죽음 효과
+            effect.Play();                  // 스테이지 01 : 거품 이펙트
 
-            effect.Play();              // 피 이펙트
+
+            Camera.main.GetComponent<CameraController>()?.SetTarget(null);
         }
         else {
+            StartCoroutine(GetDamagedRoutine(targetPos));// 데미지 입은 효과
             Camera.main.GetComponent<CameraController>()?.CameraShake(0.4f, 0.3f);
         }
     }
@@ -192,6 +205,31 @@ public class BaseCharacter : MonoBehaviour {
             Vector2 dv = velocy * (effectDuration - i) * Time.deltaTime * 0.05f; // 튕겨나가는 정도
             transform.Translate(new Vector3(dv.x, dv.y, 0));
 
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    // 죽음
+    public IEnumerator Die() {
+        for (int i = 0; i <= 200; i++) {
+            //rigidbody.simulated = false;
+            //spriteRenderer.enabled = false;
+
+            // 현재 캐릭터 위치
+            posX = gameObject.transform.position.x;
+            posY = gameObject.transform.position.y;
+
+            timer += Time.deltaTime;
+
+            //if (timer > loopTime) {
+            //    mult = 1.0f;
+            //}
+            //else if (timer < 0.0f) {
+            //    mult = -1.0f;
+            //}
+
+            //transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer / loopTime) * floatingY);
+            transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer) * floatingY);
             yield return new WaitForSeconds(0.01f);
         }
     }

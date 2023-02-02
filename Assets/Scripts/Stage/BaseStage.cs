@@ -17,6 +17,7 @@ public class BaseStage : MonoBehaviour
     [SerializeField] protected int itemNum;
     [SerializeField] protected GameObject[] itemPrefabs; // item objects
     [SerializeField] protected float[] itemPercentage; // item percentage
+    [SerializeField] protected float[] listIntervalX; // interval x
     [SerializeField] protected float minIntervalY, maxIntervalY; // interval between items
 
 
@@ -51,7 +52,7 @@ public class BaseStage : MonoBehaviour
         return startPoint + height;
     }
 
-    private int chooseItem() {
+    private int ChooseItem() {
         float random = Random.Range(0f, 100f);
         float percentage = 0f;
 
@@ -64,22 +65,47 @@ public class BaseStage : MonoBehaviour
         return 0;
     }
 
+    // exception seaweeds
+    private void SetSeaweeds(GameObject seaweeds, float x) {
+        float width = Camera.main.orthographicSize / 2.2f;
+
+        if (x < 0) { // left
+            seaweeds.transform.position = new Vector2(-width, seaweeds.transform.position.y);
+            seaweeds.transform.localEulerAngles = new Vector3(1f, 1f, -70f);
+        }
+        else { // right
+            seaweeds.transform.position = new Vector2(width, seaweeds.transform.position.y);
+            seaweeds.transform.localEulerAngles = new Vector3(1f, 1f, 70f);
+        }
+    }
+
     // create items
     private void CreateItems() {
-        float minX = -Camera.main.orthographicSize / 2.3f; // range min x
-        float maxX = Camera.main.orthographicSize / 2.3f; // range max x
         float currentY = player.transform.position.y; // current y point
-        for (int i = 0; i < itemNum; i++) {
-            // set creating point random
-            float x = Random.Range(minX, maxX);
-            float y = currentY + Random.Range(minIntervalY, maxIntervalY);
-            Vector2 creatingPoint = new Vector2(x, y);
-            currentY = y;
+        while (itemNum > 0) {
+            // set item cnt in line
+            int num = Random.Range(1, listIntervalX.Length);
+            num = Mathf.Min(num, itemNum);
 
-            // set item type by item percentage
-            int itemType = chooseItem();
-            GameObject temp = Instantiate(itemPrefabs[itemType], creatingPoint, Quaternion.identity);
-            temp.transform.SetParent(this.gameObject.transform.Find("Item").transform);
+            float y = currentY + Random.Range(minIntervalY, maxIntervalY);
+            currentY = y;
+            for (int i = 0; i < num; i++) {
+                // item minus
+                itemNum--;
+
+                // set creating point random
+                float x = Random.Range(listIntervalX[i], listIntervalX[i + 1]);
+                Vector2 creatingPoint = new Vector2(x, y);
+
+                // set item type by item percentage
+                int itemType = ChooseItem();
+                GameObject temp = Instantiate(itemPrefabs[itemType], creatingPoint, Quaternion.identity);
+                temp.transform.SetParent(this.gameObject.transform.Find("Item").transform);
+
+                if (itemPrefabs[itemType].name == "Seaweeds") { // exception seaweeds
+                    SetSeaweeds(temp, x);
+                }
+            }
         }
     }
 

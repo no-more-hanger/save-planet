@@ -16,6 +16,7 @@ public class BaseStage : MonoBehaviour
     [Header("This is item settings")]
     [SerializeField] protected int itemNum;
     [SerializeField] protected GameObject[] itemPrefabs; // item objects
+    [SerializeField] protected float[] itemPercentage; // item percentage
     [SerializeField] protected float minIntervalY, maxIntervalY; // interval between items
 
 
@@ -50,10 +51,23 @@ public class BaseStage : MonoBehaviour
         return startPoint + height;
     }
 
+    private int chooseItem() {
+        float random = Random.Range(0f, 100f);
+        float percentage = 0f;
+
+        for(int i = 0; i < itemPercentage.Length; i++) {
+            percentage += itemPercentage[i];
+            if(random < percentage) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     // create items
     private void CreateItems() {
-        float minX = -Camera.main.orthographicSize / 2.0f; // range min x
-        float maxX = Camera.main.orthographicSize / 2.0f; // range max x
+        float minX = -Camera.main.orthographicSize / 2.3f; // range min x
+        float maxX = Camera.main.orthographicSize / 2.3f; // range max x
         float currentY = player.transform.position.y; // current y point
         for (int i = 0; i < itemNum; i++) {
             // set creating point random
@@ -62,8 +76,8 @@ public class BaseStage : MonoBehaviour
             Vector2 creatingPoint = new Vector2(x, y);
             currentY = y;
 
-            // set item type random
-            int itemType = Random.Range(0, itemPrefabs.Length);
+            // set item type by item percentage
+            int itemType = chooseItem();
             GameObject temp = Instantiate(itemPrefabs[itemType], creatingPoint, Quaternion.identity);
             temp.transform.SetParent(this.gameObject.transform.Find("Item").transform);
         }

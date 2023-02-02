@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class SettingManager : MonoBehaviour {
+    public GameObject countdownObj;
     public TextMeshProUGUI bgmText, soundText;
     public Slider bgmSlider, soundSlider;
 
@@ -83,15 +84,23 @@ public class SettingManager : MonoBehaviour {
         popup.SetActive(!curActive);
     }
 
+    // pause game
     public void OnPauseGame() {
-        if (Time.timeScale == 0f) {  // current game paused -> restart
-            GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = true;
-            GameObject.FindWithTag("Timer").GetComponent<TimerController>().StartTimer();
-        }
-        else {  // current game ing -> pause
-            GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = false;
-            GameObject.FindWithTag("Timer").GetComponent<TimerController>().StopTimer();
-        }
-        Time.timeScale = (1f - Time.timeScale);
+        Time.timeScale = 0f;
+        GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = false;
+        GameObject.FindWithTag("Timer").GetComponent<TimerController>().StopTimer();
+    }
+
+    // count down
+    public void StartCountDown() {
+        GameObject temp = Instantiate(countdownObj, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
+        temp.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+    }
+
+    // continue game
+    public void OnContinueGame() {
+        Time.timeScale = 1f;
+        GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = true;
+        GameObject.FindWithTag("Timer").GetComponent<TimerController>().StartTimer();
     }
 }

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 7609064098289310158}
   - component: {fileID: 7609064098289310154}
   - component: {fileID: 7609064098289310153}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Squid
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,3 +144,9 @@ MonoBehaviour:
   - {fileID: 46125642589257939, guid: 5c70c5a0543c846849c813295ca2e9f8, type: 3}
   - {fileID: 2090385927273435873, guid: 802392e13a6054411877418c7fdb54a8, type: 3}
   - {fileID: 400313324308969819, guid: e337e37a471c4436aaabaa2121496702, type: 3}
+  inkInstance:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  inkSound: {fileID: 0}

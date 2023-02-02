@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2613542313873121895}
   - component: {fileID: 2613542313873121894}
   - component: {fileID: 2613542313873121893}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: RunningFish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3241135793490542923}
   - component: {fileID: 7479180759373605638}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: SurpriseMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

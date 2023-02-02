@@ -29,6 +29,10 @@ public class TimerController : MonoBehaviour {
         stopwatch.Restart();
     }
 
+    public int GetTimeSeconds() {
+        return (int)stopwatch.ElapsedMilliseconds / 1000;
+    }
+
     private void Update() {
         int sec = (int)stopwatch.ElapsedMilliseconds / 1000;
         int min = sec / 60;

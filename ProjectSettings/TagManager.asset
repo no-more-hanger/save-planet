@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - Goal
   - Timer
+  - Disaster
+  - Item
   layers:
   - Default
   - TransparentFX

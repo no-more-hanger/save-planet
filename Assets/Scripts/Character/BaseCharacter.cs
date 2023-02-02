@@ -20,6 +20,7 @@ public class BaseCharacter : MonoBehaviour {
 
     [SerializeField]
     private GameObject balloonPrefab;       // 풍선 프리팹
+    private bool isBalloon;                 // 풍선 화면에 보여줄지 여부
 
     [SerializeField]
     private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 피 효과
@@ -33,7 +34,7 @@ public class BaseCharacter : MonoBehaviour {
         originSpeed = 2f;
         speed = originSpeed;
 
-        damage = 0;
+        damage = 90;
         isGun = false;
         balloonCnt = 0;
     }
@@ -44,6 +45,9 @@ public class BaseCharacter : MonoBehaviour {
     }
     public void SetSpeed(float variation) {
         speed = variation;
+    }
+    public int GetBalloonCnt() {
+        return balloonCnt;
     }
 
     private void Update() {
@@ -66,17 +70,19 @@ public class BaseCharacter : MonoBehaviour {
 
         // 풍선 생성
         // 현재 풍선 개수 확인
-        int CurrentBalloonCnt = transform.Find("Balloons").childCount;
-        if (CurrentBalloonCnt >= balloonCnt) {
-            Transform[] childList = transform.Find("Balloons").GetComponentsInChildren<Transform>();
-            for (int i = CurrentBalloonCnt; i > balloonCnt; i--) {
-                Destroy(childList[i].gameObject);
+        if (isBalloon) {
+            int CurrentBalloonCnt = transform.Find("Balloons").childCount;
+            if (CurrentBalloonCnt >= balloonCnt) {
+                Transform[] childList = transform.Find("Balloons").GetComponentsInChildren<Transform>();
+                for (int i = CurrentBalloonCnt; i > balloonCnt; i--) {
+                    Destroy(childList[i].gameObject);
+                }
             }
-        }
-        else {
-            GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
-            // 부모에 상속 정리
-            balloonClone.transform.SetParent(transform.Find("Balloons"));
+            else {
+                GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
+                // 부모에 상속 정리
+                balloonClone.transform.SetParent(transform.Find("Balloons"));
+            }
         }
 
         // 아이템
@@ -114,7 +120,7 @@ public class BaseCharacter : MonoBehaviour {
 
         // 한 프레임 당 이동거리 계산
         float moveX = x * speed * Time.deltaTime;
-        float moveY = (y * speed - gravityScale) * Time.deltaTime;
+        float moveY = ((y < 0 ? 0 : y) * speed - gravityScale) * Time.deltaTime; // 아래로는 못 가게 막기
 
         // Idle
         if (x == 0.0f) {

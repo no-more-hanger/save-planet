@@ -27,9 +27,6 @@ public class Fish : BaseElement {
     }
     protected override void AdjustEffect() {
         playerScript.Hurt(damage, transform.position);
-    }
-
-    private void OnDestroy() {
         Instantiate(runningFish, transform.position, transform.rotation);
     }
 }

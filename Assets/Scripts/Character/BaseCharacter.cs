@@ -35,6 +35,10 @@ public class BaseCharacter : MonoBehaviour {
     //private float loopTime = 0.5f;
     //private float mult = 1.0f;
 
+
+    private bool isMoveX = true; // character move 
+    private bool isMoveY = true; // character move 
+
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -61,6 +65,13 @@ public class BaseCharacter : MonoBehaviour {
     public float GetSpeed() {
         return speed;
     }
+    public void SetIsMoveX(bool flag) {
+        isMoveX = flag;
+    }
+    public void SetIsMoveY(bool flag) {
+        isMoveY = flag;
+    }
+
 
     private void Update() {
         // 죽음
@@ -130,8 +141,8 @@ public class BaseCharacter : MonoBehaviour {
     // 이동
     public void Move() {
         // 이동 제어
-        float x = Input.GetAxisRaw("Horizontal");   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
-        float y = Input.GetAxisRaw("Vertical");     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
+        float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
+        float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
 
         // 한 프레임 당 이동거리 계산
         float moveX = x * speed * Time.deltaTime;

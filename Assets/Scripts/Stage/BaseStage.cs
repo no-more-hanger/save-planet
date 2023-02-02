@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BaseStage : MonoBehaviour
 {
@@ -23,7 +24,9 @@ public class BaseStage : MonoBehaviour
 
     protected void Awake() {
         player = GameObject.FindWithTag("Player");
-        
+        player.GetComponent<BaseCharacter>().SetIsMoveX(false);
+        player.GetComponent<BaseCharacter>().SetIsMoveY(false);
+
         CreateBackground(); // create background
         CreateItems(); // create items
         FadeIn(fadeTime); // fade in
@@ -112,6 +115,7 @@ public class BaseStage : MonoBehaviour
     // fade in
     private void FadeIn(float time) {
         StartCoroutine(FadeEffect(1f, -time));
+        Invoke(nameof(StartGame), time);
     }
 
 
@@ -128,6 +132,13 @@ public class BaseStage : MonoBehaviour
             yield return null;
         }
         backgroundBlack.gameObject.SetActive(false);
+    }
+
+    // start game
+    private void StartGame() {
+        GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
+        GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().StartCountDown();
+        GameObject.Find("PauseButton").GetComponent<Button>().enabled = true;
     }
 
     // load function next scene in ChangeScene

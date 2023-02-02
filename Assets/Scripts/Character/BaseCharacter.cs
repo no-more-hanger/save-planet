@@ -163,46 +163,45 @@ public class BaseCharacter : MonoBehaviour {
     public void Hurt(float hurt, Vector3 targetPos) {
         if (noDamageTimer > 0) return;      // 무적일 땐 return
 
+        float velocity = 0.05f;              // 반동 시, 튕겨나가는 정도
+
         noDamageTimer = 1.0f;               // 무적 시작
         damage += hurt;                     // 데미지 입음
 
         if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
             rigidbody.simulated = false;
-            StartCoroutine(Die());                      // 죽음 효과
+            StartCoroutine(Die());          // 죽음 효과
             effect.Play();                  // 스테이지 01 : 거품 이펙트
-
 
             Camera.main.GetComponent<CameraController>()?.SetTarget(null);
         }
         else {
-            StartCoroutine(GetDamagedRoutine(targetPos));// 데미지 입은 효과
-            Camera.main.GetComponent<CameraController>()?.CameraShake(0.4f, 0.3f);
+            if (hurt > 10) {
+                StartCoroutine(GetDamagedRedRoutine());                     // 데미지 10 이상일 때만 빨갛게 변함
+            }
+            StartCoroutine(GetDamagedReboundRoutine(targetPos, velocity));  // 반동 효과
+            Camera.main.GetComponent<CameraController>()?.CameraShake(0.4f, 0.3f); // 카메라 흔듦
         }
     }
 
-    // 데미지 치료
-    public void Heal(float heal) {
-        damage -= heal;
-        StartCoroutine(GetHealedRoutine());
-    }
-
-    public void SpeedUp(float duration, float variation) {
-        itemTimer = duration;
-        speed = variation;
-    }
-
-    public IEnumerator GetDamagedRoutine(Vector3 targetPos) {
+    // 빨갛게 변하는 효과
+    public IEnumerator GetDamagedRedRoutine() {
         for (int i = 0; i <= effectDuration; i++) {
             spriteRenderer.color = new Color(1, 0.01f * i, 0.01f * i);  // 빨간색으로 변함
-
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+    // 반동 효과
+    public IEnumerator GetDamagedReboundRoutine(Vector3 targetPos, float velocity) {
+        for (int i = 0; i <= effectDuration; i++) {
             // 튕겨 나감
             Vector2 velocy = new Vector2(0, -1);    // 무조건 아래로 튀도록 초기화
 
             // 장애물 || 재해보다 오른쪽에 있으면 오른쪽(1)으로, 왼쪽에 있으면 왼쪽(-1)으로 튀도록
             velocy.x = (transform.position.x - targetPos.x) > 0 ? 1 : -1;
 
-            Vector2 dv = velocy * (effectDuration - i) * Time.deltaTime * 0.05f; // 튕겨나가는 정도
+            Vector2 dv = velocy * (effectDuration - i) * Time.deltaTime * velocity; // 튕겨나가는 정도
             transform.Translate(new Vector3(dv.x, dv.y, 0));
 
             yield return new WaitForSeconds(0.01f);
@@ -239,6 +238,17 @@ public class BaseCharacter : MonoBehaviour {
             spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    // 데미지 치료
+    public void Heal(float heal) {
+        damage -= heal;
+        StartCoroutine(GetHealedRoutine());
+    }
+
+    public void SpeedUp(float duration, float variation) {
+        itemTimer = duration;
+        speed = variation;
     }
 
     // 총 메기

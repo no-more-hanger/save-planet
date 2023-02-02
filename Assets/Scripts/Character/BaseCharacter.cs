@@ -25,10 +25,10 @@ public class BaseCharacter : MonoBehaviour {
     [SerializeField]
     private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 거품 or 피 효과
 
-    private float itemTimer = 0f;           // 아이템 지속 시간
+    private float itemTimer=100f;           // 아이템 지속 시간
 
     [SerializeField]
-    public AnimationCurve dieAnimCurve;   // 죽을 때, 아래로 떨어지는 애니메이션을 위한 효과
+    public AnimationCurve dieAnimCurve;     // 죽을 때, 아래로 떨어지는 애니메이션을 위한 효과
     private float floatingY = -0.25f;
     private float timer = 0.0f;
     private float posX, posY;
@@ -57,6 +57,9 @@ public class BaseCharacter : MonoBehaviour {
     }
     public int GetBalloonCnt() {
         return balloonCnt;
+    }
+    public float GetSpeed() {
+        return speed;
     }
 
     private void Update() {
@@ -140,8 +143,12 @@ public class BaseCharacter : MonoBehaviour {
         }
         // Run
         else {
-            anim.SetBool("isRun", true);
-            anim.SetFloat("DirX", x);   // left(0), right(1)
+            // 아이템 지속 동안엔 애니메이션 x
+            if (itemTimer <= 0) {
+                anim.SetBool("isRun", true);
+            }
+            transform.localScale = new Vector3(-x, transform.localScale.y, transform.localScale.z);// left(1), right(-1)
+            //anim.SetFloat("DirX", x);   // left(0), right(1)
         }
         // Move
         transform.Translate(new Vector3(moveX, moveY, 0));

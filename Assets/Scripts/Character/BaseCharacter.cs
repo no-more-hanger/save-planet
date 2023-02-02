@@ -25,7 +25,7 @@ public class BaseCharacter : MonoBehaviour {
     [SerializeField]
     private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 거품 or 피 효과
 
-    private float itemTimer=100f;           // 아이템 지속 시간
+    private float itemTimer;                // 아이템 지속 시간
 
     [SerializeField]
     public AnimationCurve dieAnimCurve;     // 죽을 때, 아래로 떨어지는 애니메이션을 위한 효과

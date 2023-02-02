@@ -33,10 +33,14 @@ public class TimerController : MonoBehaviour {
         return (int)stopwatch.ElapsedMilliseconds / 1000;
     }
 
-    private void Update() {
+    public string GetTimeString() {
         int sec = (int)stopwatch.ElapsedMilliseconds / 1000;
         int min = sec / 60;
 
-        timeText.text = string.Format("{0, 2:00} : {1, 2:00}", min, sec - min * 60);
+        return string.Format("{0, 2:00} : {1, 2:00}", min, sec - min * 60);
+    }
+
+    private void Update() {
+        timeText.text = GetTimeString();
     }
 }

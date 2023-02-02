@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Obstacle
-  - Goal
   - Timer
   - Disaster
   - Item
@@ -20,7 +19,7 @@ TagManager:
   - Disaster
   - Obstacle
   - Item
-  - 
+  - Goal
   - 
   - 
   - 

@@ -86,9 +86,11 @@ public class SettingManager : MonoBehaviour {
     public void OnPauseGame() {
         if (Time.timeScale == 0f) {  // current game paused -> restart
             GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = true;
+            GameObject.FindWithTag("Timer").GetComponent<TimerController>().StartTimer();
         }
         else {  // current game ing -> pause
             GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = false;
+            GameObject.FindWithTag("Timer").GetComponent<TimerController>().StopTimer();
         }
         Time.timeScale = (1f - Time.timeScale);
     }

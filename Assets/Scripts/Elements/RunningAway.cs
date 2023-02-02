@@ -13,7 +13,7 @@ public class RunningAway : MonoBehaviour {
     }
     private void Update() {
         transform.Translate(direction * Time.deltaTime * speed);
-        if (transform.position.x < -5) {
+        if (transform.position.x < -5 || transform.position.x > 5) {
             Destroy(gameObject);
         }
     }

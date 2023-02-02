@@ -139,3 +139,8 @@ MonoBehaviour:
   particle: {fileID: 0}
   anim: {fileID: 0}
   destroyDelay: 0
+  inkImg:
+  - {fileID: 6425431878592632068, guid: ae8126a061dc34a91b17f58749a4108b, type: 3}
+  - {fileID: 46125642589257939, guid: 5c70c5a0543c846849c813295ca2e9f8, type: 3}
+  - {fileID: 2090385927273435873, guid: 802392e13a6054411877418c7fdb54a8, type: 3}
+  - {fileID: 400313324308969819, guid: e337e37a471c4436aaabaa2121496702, type: 3}

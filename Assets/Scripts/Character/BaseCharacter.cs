@@ -23,9 +23,18 @@ public class BaseCharacter : MonoBehaviour {
     private bool isBalloon;                 // 풍선 화면에 보여줄지 여부
 
     [SerializeField]
-    private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 피 효과
+    private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 거품 or 피 효과
 
     private float itemTimer = 0f;           // 아이템 지속 시간
+
+    [SerializeField]
+    public AnimationCurve dieAnimCurve;   // 죽을 때, 아래로 떨어지는 애니메이션을 위한 효과
+    private float floatingY = -0.25f;
+    private float timer = 0.0f;
+    private float posX, posY;
+    //private float loopTime = 0.5f;
+    //private float mult = 1.0f;
+
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -51,6 +60,9 @@ public class BaseCharacter : MonoBehaviour {
     }
 
     private void Update() {
+        // 죽음
+        if (damage >= 100) { return; }
+
         // 이동
         Move();
 
@@ -151,20 +163,80 @@ public class BaseCharacter : MonoBehaviour {
     public void Hurt(float hurt, Vector3 targetPos) {
         if (noDamageTimer > 0) return;      // 무적일 땐 return
 
+        float velocity = 0.05f;              // 반동 시, 튕겨나가는 정도
+
         noDamageTimer = 1.0f;               // 무적 시작
         damage += hurt;                     // 데미지 입음
 
-        StartCoroutine(GetDamagedRoutine(targetPos));// 데미지 입은 효과
-
-        if (damage >= 100) {                // 죽음
-            rigidbody.simulated = false;
-            spriteRenderer.enabled = false;
+        if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
+            rigidbody.simulated = false;
+            StartCoroutine(Die());          // 죽음 효과
+            effect.Play();                  // 스테이지 01 : 거품 이펙트
 
-            effect.Play();              // 피 이펙트
+            Camera.main.GetComponent<CameraController>()?.SetTarget(null);
         }
         else {
-            Camera.main.GetComponent<CameraController>()?.CameraShake(0.4f, 0.3f);
+            if (hurt > 10) {
+                StartCoroutine(GetDamagedRedRoutine());                     // 데미지 10 이상일 때만 빨갛게 변함
+            }
+            StartCoroutine(GetDamagedReboundRoutine(targetPos, velocity));  // 반동 효과
+            Camera.main.GetComponent<CameraController>()?.CameraShake(0.4f, 0.3f); // 카메라 흔듦
+        }
+    }
+
+    // 빨갛게 변하는 효과
+    public IEnumerator GetDamagedRedRoutine() {
+        for (int i = 0; i <= effectDuration; i++) {
+            spriteRenderer.color = new Color(1, 0.01f * i, 0.01f * i);  // 빨간색으로 변함
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+    // 반동 효과
+    public IEnumerator GetDamagedReboundRoutine(Vector3 targetPos, float velocity) {
+        for (int i = 0; i <= effectDuration; i++) {
+            // 튕겨 나감
+            Vector2 velocy = new Vector2(0, -1);    // 무조건 아래로 튀도록 초기화
+
+            // 장애물 || 재해보다 오른쪽에 있으면 오른쪽(1)으로, 왼쪽에 있으면 왼쪽(-1)으로 튀도록
+            velocy.x = (transform.position.x - targetPos.x) > 0 ? 1 : -1;
+
+            Vector2 dv = velocy * (effectDuration - i) * Time.deltaTime * velocity; // 튕겨나가는 정도
+            transform.Translate(new Vector3(dv.x, dv.y, 0));
+
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    // 죽음
+    public IEnumerator Die() {
+        for (int i = 0; i <= 200; i++) {
+            //rigidbody.simulated = false;
+            //spriteRenderer.enabled = false;
+
+            // 현재 캐릭터 위치
+            posX = gameObject.transform.position.x;
+            posY = gameObject.transform.position.y;
+
+            timer += Time.deltaTime;
+
+            //if (timer > loopTime) {
+            //    mult = 1.0f;
+            //}
+            //else if (timer < 0.0f) {
+            //    mult = -1.0f;
+            //}
+
+            //transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer / loopTime) * floatingY);
+            transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer) * floatingY);
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
+
+    public IEnumerator GetHealedRoutine() {
+        for (int i = 0; i <= effectDuration; i++) {
+            spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
@@ -177,30 +249,6 @@ public class BaseCharacter : MonoBehaviour {
     public void SpeedUp(float duration, float variation) {
         itemTimer = duration;
         speed = variation;
-    }
-
-    public IEnumerator GetDamagedRoutine(Vector3 targetPos) {
-        for (int i = 0; i <= effectDuration; i++) {
-            spriteRenderer.color = new Color(1, 0.01f * i, 0.01f * i);  // 빨간색으로 변함
-
-            // 튕겨 나감
-            Vector2 velocy = new Vector2(0, -1);    // 무조건 아래로 튀도록 초기화
-
-            // 장애물 || 재해보다 오른쪽에 있으면 오른쪽(1)으로, 왼쪽에 있으면 왼쪽(-1)으로 튀도록
-            velocy.x = (transform.position.x - targetPos.x) > 0 ? 1 : -1;
-
-            Vector2 dv = velocy * (effectDuration - i) * Time.deltaTime * 0.05f; // 튕겨나가는 정도
-            transform.Translate(new Vector3(dv.x, dv.y, 0));
-
-            yield return new WaitForSeconds(0.01f);
-        }
-    }
-
-    public IEnumerator GetHealedRoutine() {
-        for (int i = 0; i <= effectDuration; i++) {
-            spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
-            yield return new WaitForSeconds(0.01f);
-        }
     }
 
     // 총 메기

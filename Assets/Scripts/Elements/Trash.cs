@@ -11,5 +11,8 @@ public class Trash : BaseElement {
 
     private void Update() {
         transform.Translate(Vector3.down * Time.deltaTime * speed);
+        if (transform.position.y < -2.6) {
+            speed = 0;
+        }
     }
 }

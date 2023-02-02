@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8288949178752254719}
   - component: {fileID: 7777557954733685146}
   - component: {fileID: 832094253775756895}
-  m_Layer: 0
+  - component: {fileID: 7815100629399256222}
+  m_Layer: 10
   m_Name: GoalPoint
   m_TagString: Goal
   m_Icon: {fileID: 0}
@@ -111,6 +112,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &7815100629399256222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422725200628951589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffc7e3934c3744b03a13fd34f0d02ad1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  popup: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!1 &7356238442938166860
 GameObject:
   m_ObjectHideFlags: 0

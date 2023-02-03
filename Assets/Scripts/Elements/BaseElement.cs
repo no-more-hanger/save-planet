@@ -20,6 +20,7 @@ public class BaseElement : MonoBehaviour {
 
 
     private float destroyDistance = 5.0f;
+    protected Vector3 direction;
 
     private void Awake() {
         player = GameObject.FindWithTag("Player");
@@ -64,5 +65,18 @@ public class BaseElement : MonoBehaviour {
             SoundManager._soundInstance.OnAudio(soundEffect);
         }
         Destroy(gameObject, destroyDelay);
+    }
+
+    protected void MoveHorizontal() {
+        transform.Translate(direction * Time.deltaTime);
+
+        // fish movement (go right)
+        if (transform.position.x < -2.5) {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        // fish movement (go left)
+        else if (transform.position.x > 2.5) {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
 }

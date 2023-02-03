@@ -15,8 +15,8 @@ public class BaseElement : MonoBehaviour {
     [Header("SETTING for Effect on destroy")]
     [SerializeField] protected AudioClip soundEffect = null;   // when destroyed.
     [SerializeField] protected ParticleSystem particle = null; // when destroyed.
-    [SerializeField] protected Animator anim = null;
     [SerializeField] protected float destroyDelay = 0;
+    protected Animator anim = null;
 
 
     private float destroyDistance = 5.0f;

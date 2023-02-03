@@ -11,11 +11,11 @@ public class Disaster : BaseElement {
     private bool isActive;
 
     [Header("Adjust Gravity")]
-    [SerializeField] private float gravityBound;
-    [SerializeField] private float gravityConstant;
+    private float gravityBound = 1.8f;
+    private float gravityConstant = 1.2f;
 
     [Header("Effect")]
-    [SerializeField] private float scaleUpperBound;
+    private float scaleUpperBound = 3;
 
     private void Start() {
         transform.Rotate(Vector3.forward);

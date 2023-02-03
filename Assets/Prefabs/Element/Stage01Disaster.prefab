@@ -88,10 +88,9 @@ MonoBehaviour:
   particle: {fileID: 0}
   anim: {fileID: 0}
   destroyDelay: 0
-  gravityBound: 1.5
-  gravityConstant: 0.5
-  scaleUpperBound: 2.5
-  scaleChangingRate: 0.01
+  gravityBound: 1.8
+  gravityConstant: 1.2
+  scaleUpperBound: 3
 --- !u!212 &47803655
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -40,7 +40,9 @@ public class BaseCharacter : MonoBehaviour {
 
 
     private bool isMoveX = true; // character move 
-    private bool isMoveY = true; // character move 
+    private bool isMoveY = true; // character move
+
+    private float alienAttackTimer = 0.0f;
 
     private void Start() {
         anim = GetComponent<Animator>();
@@ -76,7 +78,10 @@ public class BaseCharacter : MonoBehaviour {
     public void SetIsMoveY(bool flag) {
         isMoveY = flag;
     }
-
+    public void SetAlienAttack(float duration) {
+        alienAttackTimer = duration;
+        StartCoroutine(GetAlienAttackRoutine());
+    }
 
     private void Update() {
         // 죽음
@@ -93,6 +98,8 @@ public class BaseCharacter : MonoBehaviour {
 
         // 무적 시간 제어
         noDamageTimer -= Time.deltaTime;
+
+        alienAttackTimer -= Time.deltaTime;
     }
 
     protected void StateUpdate() {
@@ -148,6 +155,9 @@ public class BaseCharacter : MonoBehaviour {
         // 이동 제어
         float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
         float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
+
+        // 외계인 효과 적용
+        x = (alienAttackTimer > 0) ? -x : x;
 
         // 한 프레임 당 이동거리 계산
         float moveX = x * speed * Time.deltaTime;
@@ -268,6 +278,17 @@ public class BaseCharacter : MonoBehaviour {
             spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    private IEnumerator GetAlienAttackRoutine() {
+        int toggle = 0;
+        while (alienAttackTimer > 0) {
+            spriteRenderer.color = new Color(1, toggle, 1);  // 보라색
+            toggle = 1 - toggle;
+            yield return new WaitForSeconds(0.1f);
+        }
+        // set back to original
+        spriteRenderer.color = new Color(1, 1, 1);
     }
 
     // 데미지 치료

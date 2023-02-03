@@ -5,7 +5,6 @@ using UnityEngine;
 public class Fish : BaseElement {
     [SerializeField] GameObject runningFish = null;
     private float damage = 5;
-    private Vector3 direction;
 
     private void Start() {
         destroyDelay = 0;
@@ -14,16 +13,7 @@ public class Fish : BaseElement {
     }
 
     private void Update() {
-        transform.Translate(direction * Time.deltaTime);
-
-        // fish movement (go right)
-        if (transform.position.x < -2.5) {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
-        }
-        // fish movement (go left)
-        else if (transform.position.x > 2.5) {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
+        MoveHorizontal();
     }
     protected override void AdjustEffect() {
         playerScript.Hurt(damage, transform.position);

@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Trash : BaseElement {
     private float damage = 10;
-    private float speed = 1;
+    private float speed = 0;
     protected override void AdjustEffect() {
         playerScript.Hurt(damage, transform.position);
     }
 
     private void Update() {
-        transform.Translate(Vector3.down * Time.deltaTime * speed);
+        if (transform.position.y < Camera.main.transform.position.y + 5.5f) {
+            speed = 1;
+        }
         if (transform.position.y < -2.6) {
             speed = 0;
         }
+        transform.Translate(Vector3.down * Time.deltaTime * speed);
     }
 }

@@ -12,7 +12,7 @@ public class Fish : BaseElement {
         direction = Vector3.left;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         MoveHorizontal();
     }
     protected override void AdjustEffect() {

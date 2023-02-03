@@ -7,7 +7,7 @@ public class Bird : BaseElement {
         direction = Vector3.left;
         destroyDelay = 2.0f;
     }
-    private void Update() {
+    private void FixedUpdate() {
         MoveHorizontal();
     }
     protected override void AdjustEffect() {

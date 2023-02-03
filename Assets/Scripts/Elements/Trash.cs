@@ -9,7 +9,7 @@ public class Trash : BaseElement {
         playerScript.Hurt(damage, transform.position);
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         if (transform.position.y < Camera.main.transform.position.y + 5.5f && playerScript.GetIsMoveX() && playerScript.GetIsMoveY()) {
             speed = 1;
         }

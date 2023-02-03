@@ -47,6 +47,7 @@ public class BaseElement : MonoBehaviour {
     /// </summary>
     /// <param name="collision"></param>
     protected void OnCollisionEnter2D(Collision2D collision) {
+        //if (collision.gameObject.CompareTag("Bullet")) { }
         // play animation if exist
         GetComponent<Collider2D>().enabled = false;
         AdjustEffect();
@@ -79,4 +80,6 @@ public class BaseElement : MonoBehaviour {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
+
+
 }

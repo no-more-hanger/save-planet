@@ -11,7 +11,7 @@ public class RunningAway : MonoBehaviour {
     void Start() {
         Invoke("RunAway", freezeDelay);
     }
-    private void Update() {
+    private void FixedUpdate() {
         transform.Translate(direction * Time.deltaTime * speed);
         if (transform.position.x < -5 || transform.position.x > 5) {
             Destroy(gameObject);

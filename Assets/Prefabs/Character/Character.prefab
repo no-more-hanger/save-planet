@@ -10199,7 +10199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a2da3a53b88a5849bad0e0a69cbe62d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  balloonPrefab: {fileID: 731978332613030603, guid: 87ffbb96a034ded43bfd23c0896f7112, type: 3}
+  balloonPrefab: {fileID: 8387576286032918067, guid: b48851b3569734541be09cc95475fbe5, type: 3}
   effect: {fileID: 1348256350182750804}
   dieAnimCurve:
     serializedVersion: 2

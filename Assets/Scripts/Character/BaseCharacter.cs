@@ -12,7 +12,6 @@ public class BaseCharacter : MonoBehaviour {
 
     private Animator anim;                  // 애니메이션
     private SpriteRenderer spriteRenderer;  // 외관
-    private Rigidbody2D rigidbody;
 
     private float originSpeed;              // 원래 속도
     private float speed;                    // 현재 속도
@@ -49,7 +48,6 @@ public class BaseCharacter : MonoBehaviour {
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        rigidbody = GetComponent<Rigidbody2D>();
 
         originSpeed = 2f;
         speed = originSpeed;
@@ -196,11 +194,11 @@ public class BaseCharacter : MonoBehaviour {
         float width = height * Screen.width / Screen.height;// 카메라가 비추는 영역의 가로의 절반
 
         Vector3 pos = transform.position;
-        if (pos.x < -width - 0.2f) {
-            transform.position = new Vector3(width, pos.y, 0);
+        if (pos.x < -width + 0.2f) {
+            transform.position = new Vector3(-width + 0.2f, pos.y, 0);
         }
-        if (pos.x > width + 0.2f) {
-            transform.position = new Vector3(-width, pos.y, 0);
+        if (pos.x > width - 0.2f) {
+            transform.position = new Vector3(width - 0.2f, pos.y, 0);
         }
     }
 
@@ -215,7 +213,6 @@ public class BaseCharacter : MonoBehaviour {
 
         if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
-            rigidbody.simulated = false;
             StartCoroutine(Die());          // 죽음 효과
             effect.Play();                  // 스테이지 01 : 거품 이펙트
 

@@ -12,6 +12,5 @@ public class Goal : MonoBehaviour {
         timer.StopTimer();
         GameObject.Find("Canvas").transform.Find("EndingPopup").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
-        GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timer.GetTimeString();
     }
 }

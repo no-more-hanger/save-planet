@@ -37,10 +37,10 @@ RectTransform:
   m_Father: {fileID: 9104273107548390849}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -2000, y: -1500}
+  m_SizeDelta: {x: 1000, y: 1500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9104273107152800508
 CanvasRenderer:
@@ -117,7 +117,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3000, y: 3000}
+  m_SizeDelta: {x: 5000, y: 5000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9104273107548390855
 CanvasRenderer:
@@ -466,10 +466,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
@@ -477,7 +481,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1551351530586574698, guid: fa40901d71a5c8741ab7c465696b0252, type: 3}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 7508799424926944955, guid: 4cfca9f8a172b3c4aa43f141e425db61, type: 3}
+    - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
@@ -485,11 +497,23 @@ PrefabInstance:
       value: OnLoadStartScene
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnContinueGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: ChangeScene, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: SettingManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050526, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}

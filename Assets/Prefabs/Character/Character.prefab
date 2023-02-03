@@ -164,6 +164,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  bulletPrefab: {fileID: 6517039205549848125, guid: 63680c9cc90daeb4e86d9d50c3bc71f3, type: 3}
 --- !u!1 &5189661058729856311
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,6 +72,12 @@ public class BaseCharacter : MonoBehaviour {
     public float GetSpeed() {
         return speed;
     }
+    public bool GetIsMoveX() {
+        return isMoveX;
+    }
+    public bool GetIsMoveY() {
+        return isMoveY;
+    }
     public void SetIsMoveX(bool flag) {
         isMoveX = flag;
     }

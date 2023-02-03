@@ -10,7 +10,7 @@ public class Trash : BaseElement {
     }
 
     private void Update() {
-        if (transform.position.y < Camera.main.transform.position.y + 5.5f) {
+        if (transform.position.y < Camera.main.transform.position.y + 5.5f && playerScript.GetIsMoveX() && playerScript.GetIsMoveY()) {
             speed = 1;
         }
         if (transform.position.y < -2.6) {

@@ -6,20 +6,18 @@ using UnityEngine;
 /// Disaster class - child class of BaseElement
 /// </summary>
 public class Disaster : BaseElement {
-    private Rigidbody2D playerRb;
     private float rotationSpeed = 120.0f;
     private Vector3 initialScale;
     private bool isActive;
 
     [Header("Adjust Gravity")]
-    [SerializeField] private float gravityBound;
-    [SerializeField] private float gravityConstant;
+    private float gravityBound = 1.8f;
+    private float gravityConstant = 1.2f;
 
     [Header("Effect")]
-    [SerializeField] private float scaleUpperBound;
+    private float scaleUpperBound = 3;
 
     private void Start() {
-        playerRb = player.GetComponent<Rigidbody2D>();
         transform.Rotate(Vector3.forward);
         initialScale = transform.localScale;
         destroyDelay = 5.0f;
@@ -29,7 +27,7 @@ public class Disaster : BaseElement {
     private void FixedUpdate() {
         transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
         if (isActive) {
-            ApplyGravity(player, playerRb);
+            ApplyGravity(player);
         }
         else {
             ChangeScale(-2f);
@@ -43,22 +41,19 @@ public class Disaster : BaseElement {
         isActive = false;
     }
 
-    private void ApplyGravity(GameObject obj, Rigidbody2D rb) {
+    private void ApplyGravity(GameObject obj) {
         float distance = Vector3.Distance(gameObject.transform.position, obj.transform.position);
         // apply gravity caused by disaster
         if (distance < gravityBound) {
             // get unit vector for direction of Force
             Vector3 direction = (gameObject.transform.position - obj.transform.position).normalized;
             Vector3 force = direction * gravityConstant / (distance * distance);
-            //rb.AddForce(force);
             obj.transform.Translate(force * Time.deltaTime);
             if (transform.localScale.x < scaleUpperBound) {
                 ChangeScale(1f);
             }
         }
-        // set velocity to (0, 0, 0) 
         else {
-            rb.velocity = Vector3.zero;
             if (transform.localScale.x > initialScale.x) {
                 ChangeScale(-2f);
             }

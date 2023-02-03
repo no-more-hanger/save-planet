@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 374420734702267745}
-  - component: {fileID: 374420734702267746}
   - component: {fileID: 374420734702267751}
   - component: {fileID: 374420734702267750}
   - component: {fileID: 47803655}
@@ -35,27 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &374420734702267746
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374420734702267773}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1000000
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!58 &374420734702267751
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -86,7 +64,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: 429b8e5839d13409198b54fda4a79d90, type: 3}
   particle: {fileID: 0}
-  anim: {fileID: 0}
   destroyDelay: 0
   gravityBound: 1.8
   gravityConstant: 1.2

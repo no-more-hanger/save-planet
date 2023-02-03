@@ -6,6 +6,7 @@ public class Alien : BaseElement {
     private float duration = 5.0f;
     private void Start() {
         direction = Vector3.left;
+        anim.SetInteger("alienMode_int", Random.Range(1, 5));
     }
     private void FixedUpdate() {
         MoveHorizontal();

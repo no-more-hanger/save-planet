@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpaceShip : BaseElement {
     private bool isMoving = false;
     private float speed = 2.0f;
-    [SerializeField] private GameObject alien;
+    [SerializeField] private GameObject alienPrefab;
 
     void FixedUpdate() {
         if (isMoving) {
@@ -23,7 +23,8 @@ public class SpaceShip : BaseElement {
 
     protected override void AdjustEffect() {
         playerScript.Hurt(10, transform.position);
-        Instantiate(alien, transform.position, Quaternion.Euler(Vector3.zero));
+        GameObject alien = Instantiate(alienPrefab, transform.position, Quaternion.Euler(Vector3.zero));
+        alien.GetComponent<Animator>().SetInteger("alienMode_int", Random.Range(1, 5));
 
     }
 }

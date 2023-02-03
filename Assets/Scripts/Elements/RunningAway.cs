@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RunningAway : MonoBehaviour {
     [Header("Speed")]
-    [SerializeField] private float speed = 80.0f;
+    [SerializeField] private float speed;
     [SerializeField] private float freezeDelay = 0.5f;
     private Vector3 direction;
 

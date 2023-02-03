@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6948552085909205747}
   - component: {fileID: 6948552085909205744}
   - component: {fileID: 6299092930997439148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Alien
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: e2df0adb0ed4b4dd1b805e7e3bf7ea0b, type: 3}
   particle: {fileID: 0}
-  anim: {fileID: 0}
   destroyDelay: 0
 --- !u!95 &6299092930997439148
 Animator:

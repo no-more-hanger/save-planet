@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 555781618755873873}
   - component: {fileID: 555781618755873872}
   - component: {fileID: 555781618755873875}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bird
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: 0a610ff378d364165aeb05aee04de301, type: 3}
   particle: {fileID: 0}
-  anim: {fileID: 0}
   destroyDelay: 0
   birdImg:
   - {fileID: 553555893, guid: 6b2da3845870f5e45a4cb6b4c800c746, type: 3}

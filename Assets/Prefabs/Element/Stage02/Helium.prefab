@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5642321391892911056}
   - component: {fileID: 5642321391892911070}
   - component: {fileID: 5642321391892911061}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Helium
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

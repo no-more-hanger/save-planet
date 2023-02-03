@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 914306296087917414}
   - component: {fileID: 914306296087917413}
   - component: {fileID: 914306296087917408}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stage02Disaster
-  m_TagString: Untagged
+  m_TagString: Disaster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,9 +101,6 @@ MonoBehaviour:
   soundEffect: {fileID: 8300000, guid: 429b8e5839d13409198b54fda4a79d90, type: 3}
   particle: {fileID: 0}
   destroyDelay: 0
-  gravityBound: 1.8
-  gravityConstant: 1.2
-  scaleUpperBound: 3
 --- !u!58 &914306296087917408
 CircleCollider2D:
   m_ObjectHideFlags: 0

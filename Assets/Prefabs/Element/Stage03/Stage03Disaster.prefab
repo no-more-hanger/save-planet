@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8472870016611365258}
   - component: {fileID: 7686912081001312051}
   - component: {fileID: 6846508346659304602}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stage03Disaster
-  m_TagString: Untagged
+  m_TagString: Disaster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

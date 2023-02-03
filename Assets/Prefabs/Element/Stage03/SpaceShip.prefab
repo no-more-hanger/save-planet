@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 680831559245571599}
   - component: {fileID: 680831559245571598}
   - component: {fileID: 680831559245571594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpaceShip
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: 89b0a21d743fa451481bb430a1a2fc1e, type: 3}
   particle: {fileID: 8038344524183138615, guid: 0277167a12290af47801444830a2be97, type: 3}
-  anim: {fileID: 0}
   destroyDelay: 0
   alienPrefab: {fileID: 2837649145217766026, guid: e64ce749e002b4e4e8386079c6df924d, type: 3}

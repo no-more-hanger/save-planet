@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 8291133521789949089}
   - component: {fileID: 8291133521789949088}
   - component: {fileID: 8291133521789949091}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpaceTrash
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,7 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: 87e2452fe2c754248926c9a9ab93a467, type: 3}
   particle: {fileID: 6192724089161036655, guid: e17d9a3f04750764c8c0a7a0461e4c3b, type: 3}
-  anim: {fileID: 0}
   destroyDelay: 0
 --- !u!58 &8291133521789949091
 CircleCollider2D:

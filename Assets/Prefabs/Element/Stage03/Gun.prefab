@@ -114,6 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13aaef79330c8478a8fea4306d671194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: 1edde5449b7af4b038e15d0d72a5dd77, type: 3}
+  soundEffect: {fileID: 8300000, guid: 57c435d8e2d74f84f9c0e544380e349f, type: 3}
   particle: {fileID: 4794043405585894027, guid: 37138c0c33167b04fa1fb90b7f5a794f, type: 3}
   destroyDelay: 0

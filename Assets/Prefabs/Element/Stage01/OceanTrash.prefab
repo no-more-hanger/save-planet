@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4490451283592856760}
   - component: {fileID: 4490451283592856763}
   m_Layer: 8
-  m_Name: Trash
+  m_Name: OceanTrash
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

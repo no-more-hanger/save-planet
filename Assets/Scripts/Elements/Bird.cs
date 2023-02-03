@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bird : BaseElement {
+    [SerializeField] private Sprite[] birdImg;
+    [SerializeField] private GameObject runningBirdPrefab;
+    private SpriteRenderer spriteRenderer;
     private void Start() {
         direction = Vector3.left;
-        destroyDelay = 2.0f;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = birdImg[Random.Range(0, birdImg.Length)];
     }
-    private void Update() {
+    private void FixedUpdate() {
         MoveHorizontal();
     }
     protected override void AdjustEffect() {
         playerScript.Hurt(10, transform.position);
-        transform.Find("SurpriseMark").GetComponent<SpriteRenderer>().enabled = true;
-        direction = Vector3.zero;
+        GameObject runningBird =
+        Instantiate(runningBirdPrefab, transform.position, transform.rotation);
+        runningBird.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
+        Debug.Log(runningBird.GetComponent<SpriteRenderer>().sprite);
     }
 }

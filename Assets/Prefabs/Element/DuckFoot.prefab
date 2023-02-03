@@ -117,8 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundEffect: {fileID: 8300000, guid: bbe91e88d675947e581542a51bcc81fc, type: 3}
   particle: {fileID: 0}
-  anim: {fileID: 0}
   destroyDelay: 0
+  duration: 7
+  speedVariation: 2.5
 --- !u!95 &7080338068997177816
 Animator:
   serializedVersion: 4

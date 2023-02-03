@@ -15,8 +15,8 @@ public class BaseElement : MonoBehaviour {
     [Header("SETTING for Effect on destroy")]
     [SerializeField] protected AudioClip soundEffect = null;   // when destroyed.
     [SerializeField] protected ParticleSystem particle = null; // when destroyed.
-    [SerializeField] protected Animator anim = null;
     [SerializeField] protected float destroyDelay = 0;
+    protected Animator anim = null;
 
 
     private float destroyDistance = 5.0f;
@@ -47,6 +47,7 @@ public class BaseElement : MonoBehaviour {
     /// </summary>
     /// <param name="collision"></param>
     protected void OnCollisionEnter2D(Collision2D collision) {
+        //if (collision.gameObject.CompareTag("Bullet")) { }
         // play animation if exist
         GetComponent<Collider2D>().enabled = false;
         AdjustEffect();
@@ -79,4 +80,6 @@ public class BaseElement : MonoBehaviour {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
+
+
 }

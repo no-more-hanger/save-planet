@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BaseCharacter : MonoBehaviour {
+    private TimerController timerController;
+
     private int effectDuration = 100;       // 효과 지속 상태 | 1초
     private float gravityScale = 0.5f;      // 밑으로 끌어내릴(중력) 크기 | transform으로 작용
     private float noDamageTimer = 1f;       // 공격 받은 후, 무적 시간
@@ -35,6 +38,12 @@ public class BaseCharacter : MonoBehaviour {
     //private float loopTime = 0.5f;
     //private float mult = 1.0f;
 
+
+    private bool isMoveX = true; // character move 
+    private bool isMoveY = true; // character move
+
+    private float alienAttackTimer = 0.0f;
+
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -46,6 +55,8 @@ public class BaseCharacter : MonoBehaviour {
         damage = 0;
         isGun = false;
         balloonCnt = 0;
+
+        timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
     }
 
     // class get, set
@@ -60,6 +71,16 @@ public class BaseCharacter : MonoBehaviour {
     }
     public float GetSpeed() {
         return speed;
+    }
+    public void SetIsMoveX(bool flag) {
+        isMoveX = flag;
+    }
+    public void SetIsMoveY(bool flag) {
+        isMoveY = flag;
+    }
+    public void SetAlienAttack(float duration) {
+        alienAttackTimer = duration;
+        StartCoroutine(GetAlienAttackRoutine());
     }
 
     private void Update() {
@@ -77,6 +98,8 @@ public class BaseCharacter : MonoBehaviour {
 
         // 무적 시간 제어
         noDamageTimer -= Time.deltaTime;
+
+        alienAttackTimer -= Time.deltaTime;
     }
 
     protected void StateUpdate() {
@@ -130,8 +153,11 @@ public class BaseCharacter : MonoBehaviour {
     // 이동
     public void Move() {
         // 이동 제어
-        float x = Input.GetAxisRaw("Horizontal");   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
-        float y = Input.GetAxisRaw("Vertical");     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
+        float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
+        float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
+
+        // 외계인 효과 적용
+        x = (alienAttackTimer > 0) ? -x : x;
 
         // 한 프레임 당 이동거리 계산
         float moveX = x * speed * Time.deltaTime;
@@ -182,6 +208,7 @@ public class BaseCharacter : MonoBehaviour {
             effect.Play();                  // 스테이지 01 : 거품 이펙트
 
             Camera.main.GetComponent<CameraController>()?.SetTarget(null);
+
         }
         else {
             if (hurt > 10) {
@@ -238,6 +265,12 @@ public class BaseCharacter : MonoBehaviour {
             transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer) * floatingY);
             yield return new WaitForSeconds(0.01f);
         }
+
+        // stop time & show popup
+        timerController.StopTimer();
+        GameObject.Find("Canvas").transform.Find("DyingPopup").gameObject.SetActive(true);
+        GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
+        GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timerController.GetTimeString();
     }
 
     public IEnumerator GetHealedRoutine() {
@@ -245,6 +278,17 @@ public class BaseCharacter : MonoBehaviour {
             spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
             yield return new WaitForSeconds(0.01f);
         }
+    }
+
+    private IEnumerator GetAlienAttackRoutine() {
+        int toggle = 0;
+        while (alienAttackTimer > 0) {
+            spriteRenderer.color = new Color(1, toggle, 1);  // 보라색
+            toggle = 1 - toggle;
+            yield return new WaitForSeconds(0.1f);
+        }
+        // set back to original
+        spriteRenderer.color = new Color(1, 1, 1);
     }
 
     // 데미지 치료

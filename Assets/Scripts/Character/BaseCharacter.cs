@@ -19,6 +19,8 @@ public class BaseCharacter : MonoBehaviour {
 
     private float damage;                   // 데미지
     private bool isGun;                     // 총 소지 여부
+    private int bulletCnt;                  // bullet cnt
+    const int bulletMaxCnt = 10;         // bullet max cnt
     private int balloonCnt;                 // 소지한 풍선 개수
 
     [SerializeField]
@@ -54,6 +56,7 @@ public class BaseCharacter : MonoBehaviour {
 
         damage = 0;
         isGun = false;
+        bulletCnt = 0;
         balloonCnt = 0;
 
         timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
@@ -81,6 +84,9 @@ public class BaseCharacter : MonoBehaviour {
     public void SetAlienAttack(float duration) {
         alienAttackTimer = duration;
         StartCoroutine(GetAlienAttackRoutine());
+    }
+    public int GetBulletCnt() {
+        return bulletCnt;
     }
 
     private void Update() {
@@ -305,11 +311,21 @@ public class BaseCharacter : MonoBehaviour {
     // 총 메기
     public void PutOnGun() {
         isGun = true;
+        bulletCnt = bulletMaxCnt;
     }
 
     // 총 내려놓기
     public void PutDownGun() {
         isGun = false;
+        bulletCnt = 0;
+    }
+
+    // 총 쏘기
+    public void ShootGun() {
+        bulletCnt--;
+        if (bulletCnt == 0) {
+            PutDownGun();
+        }
     }
 
     // 풍선 추가

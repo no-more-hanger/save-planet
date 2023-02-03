@@ -491,7 +491,7 @@ PrefabInstance:
     - target: {fileID: 3716701015640111827, guid: d7b0d39cdb7eaf04a80d24aa7f5e0ddb, type: 3}
       propertyPath: bgm
       value: 
-      objectReference: {fileID: 8300000, guid: 3aaa0e1c388276f4cb2f6cae57e0aeb8, type: 3}
+      objectReference: {fileID: 8300000, guid: 517e2260030abe24aa743eba2f158d48, type: 3}
     - target: {fileID: 3760036905545918165, guid: d7b0d39cdb7eaf04a80d24aa7f5e0ddb, type: 3}
       propertyPath: m_RootOrder
       value: 6

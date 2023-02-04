@@ -11,4 +11,8 @@ public class SaveUserData : MonoBehaviour {
     public void SaveStoryScene() {
         GameStaticData._dataInstance.SaveName(inputNameField.text);
     }
+
+    public void CreateRandomName() {
+        inputNameField.text = System.Guid.NewGuid().ToString().Substring(0, 4);
+    }
 }

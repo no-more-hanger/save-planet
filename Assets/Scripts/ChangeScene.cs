@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ChangeScene : MonoBehaviour {
+    // load scene name
+    public void OnLoadSceneName(string sceneName) {
+        SceneManager.LoadScene(sceneName);
+    }
+
     // load 01 stage
     public void OnLoadStage01Scene() {
         GameStaticData._dataInstance.SaveCurrentStage(1);

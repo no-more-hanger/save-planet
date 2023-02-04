@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class ChangeScene : MonoBehaviour {
     // load 01 stage
     public void OnLoadStage01Scene() {
+        GameStaticData._dataInstance.SaveCurrentStage(1);
         SceneManager.LoadScene("Stage01Scene");
     }
 
@@ -14,14 +15,30 @@ public class ChangeScene : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    // next continue
+    public void OnLoadNextScene() {
+        // 3단계는 Ending 으로
+        if (GameStaticData._dataInstance.LoadCurrentStage() <= 3) {
+            LoadNextScene();
+        }
+        else {
+            OnLoadEndingScene();
+        }
+    }
+
     // load next stage
     public void LoadNextScene() {
-        SceneManager.LoadScene($"Stage0{GameStaticData._dataInstance.currentStage + 1}Scene");
+        SceneManager.LoadScene($"Stage0{GameStaticData._dataInstance.LoadCurrentStage()}Scene");
     }
 
     // load start scene
     public void OnLoadStartScene() {
         SceneManager.LoadScene("StartScene");
+    }
+
+    // load Ending scene
+    public void OnLoadEndingScene() {
+        SceneManager.LoadScene("EndingScene");
     }
 
     // quit

@@ -282,7 +282,7 @@ public class BaseCharacter : MonoBehaviour {
         timerController.StopTimer();
         GameObject.Find("Canvas").transform.Find("DyingPopup").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
-        GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timerController.GetTimeString();
+        //GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timerController.GetTimeString();
     }
 
     public IEnumerator GetHealedRoutine() {

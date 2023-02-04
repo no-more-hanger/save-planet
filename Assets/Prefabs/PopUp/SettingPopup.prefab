@@ -535,7 +535,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 3000, y: 3000}
+  m_SizeDelta: {x: 5000, y: 5000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1513528857825229058
 CanvasRenderer:
@@ -587,11 +587,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003d1a23fb28e4c40993461fcceda91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdownObj: {fileID: 5930432527969928256, guid: 81239e02d438ea544a73e5978ac83dd3, type: 3}
   bgmText: {fileID: 4935971321877774275}
   soundText: {fileID: 1273702874150724668}
   bgmSlider: {fileID: 1513528858401050049}
   soundSlider: {fileID: 1513528858480966996}
-  countdownObj: {fileID: 5930432527969928256, guid: 81239e02d438ea544a73e5978ac83dd3, type: 3}
 --- !u!1 &1513528857906241921
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,10 +629,10 @@ RectTransform:
   m_Father: {fileID: 1513528857825229056}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -2000, y: -1500}
+  m_SizeDelta: {x: 1000, y: 1500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1513528857906241932
 CanvasRenderer:

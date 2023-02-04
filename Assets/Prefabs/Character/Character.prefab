@@ -5002,7 +5002,7 @@ GameObject:
   - component: {fileID: 1348256350182750804}
   - component: {fileID: 6713852728437464289}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Stage01DieParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

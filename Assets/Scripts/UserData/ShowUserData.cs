@@ -11,6 +11,9 @@ public class ShowUserData : MonoBehaviour {
     // show score
     public TextMeshProUGUI showScore;
 
+    [SerializeField]
+    private ChangeScene changeScene;
+
 
     private void Start() {
         //PlayerPrefs.DeleteAll();
@@ -21,6 +24,12 @@ public class ShowUserData : MonoBehaviour {
     // show name
     public void LoadStartScene() {
         GameStaticData gameStaticData = GameStaticData._dataInstance;
+
+        // 이름 없으면 이름 적으러 가기
+        if (!gameStaticData.isHasName()) {
+            changeScene.OnLoadStoryScene();
+            return;
+        }
 
         // 이름
         showName.text = gameStaticData.LoadName();

@@ -150,6 +150,22 @@ PrefabInstance:
       propertyPath: m_OnEndEdit.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: UserDataManager, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 3223609439216045881, guid: 01ec37f961067aa44b752d78d86e3f05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1795487991}
+    - target: {fileID: 3223609439216045881, guid: 01ec37f961067aa44b752d78d86e3f05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CreateRandomName
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223609439216045881, guid: 01ec37f961067aa44b752d78d86e3f05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveUserData, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3223609439216045881, guid: 01ec37f961067aa44b752d78d86e3f05, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690000, guid: 01ec37f961067aa44b752d78d86e3f05, type: 3}
       propertyPath: m_Name
       value: InputNamePopup

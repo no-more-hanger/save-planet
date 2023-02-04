@@ -11,7 +11,7 @@ public class SpaceShip : BaseElement {
         if (isMoving) {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
-        else if (transform.position.y <= Camera.main.transform.position.y + 6) {
+        else if (playerScript.GetIsMoveX() && playerScript.GetIsMoveY() && transform.position.y <= Camera.main.transform.position.y + 6) {
             anim.SetTrigger("move_trig");
             Vector3 dir = player.transform.position - transform.position;
 

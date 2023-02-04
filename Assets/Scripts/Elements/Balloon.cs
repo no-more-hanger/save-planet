@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Balloon : BaseElement {
     private int balloonCnt = 1;
+    private int color;
 
     void Start() {
         destroyDelay = 2f;
-        anim.SetInteger("balloon_int", Random.Range(0, 4));
+        color = Random.Range(0, 4);
+        anim.SetInteger("balloon_int", color);
     }
     protected override void AdjustEffect() {
-        playerScript.AddBalloon(balloonCnt);
+        playerScript.AddBalloon(balloonCnt, color);
     }
 }

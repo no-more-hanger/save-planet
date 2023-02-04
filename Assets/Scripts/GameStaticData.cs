@@ -26,6 +26,7 @@ public class GameStaticData : MonoBehaviour {
     private string KEY_CURRENT_SCORE = "CurrentScore";  // 스테이지 1, 2, 3 현재 스코어 -> 시간 : int형
     private string KEY_MAX_STAGE = "MaxStage";  // 최고 기록의 완료한 스테이지
     private string KEY_MAX_SCORE = "MaxScore"; //최고 기록(합산된 점수) ← 각 스테이지 완료한 시점에서 갱신 확인
+    private string KEY_CURRENT_BALLOON_CNT = "CurrentBalloonCnt"; // 현재 풍선 개수
 
     void Awake() {
         _dataInstance = this;
@@ -92,6 +93,15 @@ public class GameStaticData : MonoBehaviour {
     // Player Data | load MaxScore
     public int LoadMaxScore() {
         return PlayerPrefs.HasKey(KEY_MAX_SCORE) ? PlayerPrefs.GetInt(KEY_MAX_SCORE) : 0; // 0 이면 기록 없음
+    }
+
+    public void SaveCurrentBalloonCnt(int cnt) {
+        PlayerPrefs.SetInt(KEY_CURRENT_BALLOON_CNT, cnt);
+    }
+
+    // Player Data | load BalloonCnt
+    public int LoadCurrentBalloonCnt() {
+        return PlayerPrefs.HasKey(KEY_CURRENT_BALLOON_CNT) ? PlayerPrefs.GetInt(KEY_CURRENT_BALLOON_CNT) : 0;
     }
 
     public string GetTimeString(int sec) {

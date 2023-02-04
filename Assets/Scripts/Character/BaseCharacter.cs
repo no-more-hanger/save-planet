@@ -12,7 +12,6 @@ public class BaseCharacter : MonoBehaviour {
 
     private Animator anim;                  // 애니메이션
     private SpriteRenderer spriteRenderer;  // 외관
-    private Rigidbody2D rigidbody;
 
     private float originSpeed;              // 원래 속도
     private float speed;                    // 현재 속도
@@ -26,6 +25,7 @@ public class BaseCharacter : MonoBehaviour {
     [SerializeField]
     private GameObject balloonPrefab;       // 풍선 프리팹
     private bool isBalloon;                 // 풍선 화면에 보여줄지 여부
+    private float balloonCoefficient = 0.01f;       // balloon coefficient 
 
     [SerializeField]
     private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 거품 or 피 효과
@@ -49,7 +49,6 @@ public class BaseCharacter : MonoBehaviour {
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        rigidbody = GetComponent<Rigidbody2D>();
 
         originSpeed = 2f;
         speed = originSpeed;
@@ -57,7 +56,15 @@ public class BaseCharacter : MonoBehaviour {
         damage = 0;
         isGun = false;
         bulletCnt = 0;
-        balloonCnt = 0;
+
+        isBalloon = GameStaticData._dataInstance.LoadCurrentStage() == 2;
+        balloonCnt = GameStaticData._dataInstance.LoadCurrentBalloonCnt();
+
+        if (isBalloon) {
+            for (int i = 0; i < balloonCnt; i++) {
+                CreateBalloon(Random.Range(0, 4));
+            }
+        }
 
         timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
     }
@@ -118,23 +125,6 @@ public class BaseCharacter : MonoBehaviour {
         // 총 소지 여부에 따라 Gun 비/활성화
         transform.Find("Gun").gameObject.SetActive(isGun);
 
-        // 풍선 생성
-        // 현재 풍선 개수 확인
-        if (isBalloon) {
-            int CurrentBalloonCnt = transform.Find("Balloons").childCount;
-            if (CurrentBalloonCnt >= balloonCnt) {
-                Transform[] childList = transform.Find("Balloons").GetComponentsInChildren<Transform>();
-                for (int i = CurrentBalloonCnt; i > balloonCnt; i--) {
-                    Destroy(childList[i].gameObject);
-                }
-            }
-            else {
-                GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
-                // 부모에 상속 정리
-                balloonClone.transform.SetParent(transform.Find("Balloons"));
-            }
-        }
-
         // 아이템
         transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 ? true : false);
         if (itemTimer <= 0) {
@@ -168,6 +158,10 @@ public class BaseCharacter : MonoBehaviour {
         float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
         float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
 
+        if (isBalloon) {
+            y += balloonCnt * balloonCoefficient;
+        }
+
         // 외계인 효과 적용
         x = (alienAttackTimer > 0) ? -x : x;
 
@@ -196,11 +190,11 @@ public class BaseCharacter : MonoBehaviour {
         float width = height * Screen.width / Screen.height;// 카메라가 비추는 영역의 가로의 절반
 
         Vector3 pos = transform.position;
-        if (pos.x < -width - 0.2f) {
-            transform.position = new Vector3(width, pos.y, 0);
+        if (pos.x < -width + 0.2f) {
+            transform.position = new Vector3(-width + 0.2f, pos.y, 0);
         }
-        if (pos.x > width + 0.2f) {
-            transform.position = new Vector3(-width, pos.y, 0);
+        if (pos.x > width - 0.2f) {
+            transform.position = new Vector3(width - 0.2f, pos.y, 0);
         }
     }
 
@@ -215,7 +209,6 @@ public class BaseCharacter : MonoBehaviour {
 
         if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
-            rigidbody.simulated = false;
             StartCoroutine(Die());          // 죽음 효과
             effect.Play();                  // 스테이지 01 : 거품 이펙트
 
@@ -283,6 +276,7 @@ public class BaseCharacter : MonoBehaviour {
         GameObject.Find("Canvas").transform.Find("DyingPopup").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
         //GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timerController.GetTimeString();
+
     }
 
     public IEnumerator GetHealedRoutine() {
@@ -334,14 +328,30 @@ public class BaseCharacter : MonoBehaviour {
         }
     }
 
+    // 풍선 생성하기
+    public void CreateBalloon(int color) {
+        GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
+        balloonClone.GetComponent<CharacterBalloon>().SetColor(color);
+        // 부모에 상속 정리
+        balloonClone.transform.SetParent(transform.Find("Balloons"));
+    }
+
     // 풍선 추가
-    public void AddBalloon(int cnt) {
+    public void AddBalloon(int cnt, int color) {
         balloonCnt += cnt;
+        if (isBalloon) {
+            CreateBalloon(color);
+        }
     }
 
     // 풍선 제거
     public void RemoveBalloon(int cnt) {
+        if (balloonCnt <= 0) {
+            return;
+        }
+        transform.Find("Balloons").transform.GetChild(balloonCnt - 1).GetComponent<CharacterBalloon>().DeleteBallon();
         if (balloonCnt - cnt <= 0) {
+
             balloonCnt = 0;
         }
         else {

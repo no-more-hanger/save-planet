@@ -7,6 +7,7 @@ public class ChangeScene : MonoBehaviour {
     // load 01 stage
     public void OnLoadStage01Scene() {
         GameStaticData._dataInstance.SaveCurrentStage(1);
+        GameStaticData._dataInstance.SaveCurrentBalloonCnt(0);
         SceneManager.LoadScene("Stage01Scene");
     }
 

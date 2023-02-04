@@ -68,26 +68,26 @@ public class BaseStage : MonoBehaviour
         return 0;
     }
 
-    // exception seaweeds
-    private void SetSeaweeds(GameObject seaweeds, float x) {
-        float width = Camera.main.orthographicSize / 2.2f;
+    // exception side
+    private void SetSide(GameObject obj, float x, float offset, float rotaionValue) {
+        float width = Camera.main.orthographicSize / offset;
 
         if (x < 0) { // left
-            seaweeds.transform.position = new Vector2(-width, seaweeds.transform.position.y);
-            seaweeds.transform.localEulerAngles = new Vector3(1f, 1f, -70f);
+            obj.transform.position = new Vector2(-width, obj.transform.position.y);
+            obj.transform.localEulerAngles = new Vector3(0f, 0f, -rotaionValue);
         }
         else { // right
-            seaweeds.transform.position = new Vector2(width, seaweeds.transform.position.y);
-            seaweeds.transform.localEulerAngles = new Vector3(1f, 1f, 70f);
+            obj.transform.position = new Vector2(width, obj.transform.position.y);
+            obj.transform.localEulerAngles = new Vector3(0f, 0f, rotaionValue);
         }
     }
 
     // create items
     private void CreateItems() {
-        float currentY = player.transform.position.y; // current y point
+        float currentY = player.transform.position.y + 2f; // current y point
         while (itemNum > 0) {
             // set item cnt in line
-            int num = Random.Range(1, listIntervalX.Length);
+            int num = listIntervalX.Length - 1; // Random.Range(1, listIntervalX.Length);
             num = Mathf.Min(num, itemNum);
 
             float y = currentY + Random.Range(minIntervalY, maxIntervalY);
@@ -106,7 +106,9 @@ public class BaseStage : MonoBehaviour
                 temp.transform.SetParent(this.gameObject.transform.Find("Item").transform);
 
                 if (itemPrefabs[itemType].name == "Seaweeds") { // exception seaweeds
-                    SetSeaweeds(temp, x);
+                    SetSide(temp, x, 2.2f, 70f);
+                }else if(itemPrefabs[itemType].name == "Satellite") { // exception satellite
+                    SetSide(temp, x, 1.75f, 0f);
                 }
             }
         }

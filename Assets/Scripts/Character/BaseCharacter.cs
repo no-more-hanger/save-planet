@@ -213,8 +213,9 @@ public class BaseCharacter : MonoBehaviour {
         if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
             StartCoroutine(Die());          // 죽음 효과
-            effect.Play();                  // 스테이지 01 : 거품 이펙트
-
+            if (GameStaticData._dataInstance.LoadCurrentStage() == 1) {
+                effect.Play(); // 스테이지 01 : 거품 이펙트
+            }
             Camera.main.GetComponent<CameraController>()?.SetTarget(null);
 
         }
@@ -253,9 +254,6 @@ public class BaseCharacter : MonoBehaviour {
     // 죽음
     public IEnumerator Die() {
         for (int i = 0; i <= 200; i++) {
-            //rigidbody.simulated = false;
-            //spriteRenderer.enabled = false;
-
             // 현재 캐릭터 위치
             posX = gameObject.transform.position.x;
             posY = gameObject.transform.position.y;
@@ -271,6 +269,8 @@ public class BaseCharacter : MonoBehaviour {
 
             //transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer / loopTime) * floatingY);
             transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer) * floatingY);
+            // 게임 오브젝트 기준으로 회전
+            transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, i) * Time.deltaTime);
             yield return new WaitForSeconds(0.01f);
         }
 

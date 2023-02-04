@@ -23,8 +23,15 @@ public class ChangeScene : MonoBehaviour {
 
     // next continue
     public void OnLoadNextScene() {
+        var stage = GameStaticData._dataInstance.LoadCurrentStage();
+
+        // 기록 없으면 return
+        if (stage == 0) {
+            GameObject.Find("Canvas").transform.Find("CheckPopup").gameObject.SetActive(true);
+            return;
+        }
         // 3단계는 Ending 으로
-        if (GameStaticData._dataInstance.LoadCurrentStage() <= 3) {
+        if (stage <= 3) {
             LoadNextScene();
         }
         else {
@@ -45,6 +52,11 @@ public class ChangeScene : MonoBehaviour {
     // load Ending scene
     public void OnLoadEndingScene() {
         SceneManager.LoadScene("EndingScene");
+    }
+
+    // load story scene
+    public void OnLoadStoryScene() {
+        SceneManager.LoadScene("StoryScene");
     }
 
     // quit

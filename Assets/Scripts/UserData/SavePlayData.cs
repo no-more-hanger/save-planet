@@ -52,8 +52,8 @@ public class SavePlayData : MonoBehaviour {
 
         // 끝나자마자 현재 스테이지, TImer 스코어로 current 저장
         // 최고 기록은 현재 스테이지, 스코어와 비교해서 max에 저장
-
-        gameStaticData.SaveCurrentStage(currentPlayStage + 1);                  // 현재 플레이 스테이지
+        var tmpStage = currentPlayStage + 1;
+        gameStaticData.SaveCurrentStage(tmpStage > 3 ? 3 : tmpStage);          // 현재 플레이 스테이지
         gameStaticData.SaveCurrentScore(accumulatePlayScore);                  // 현재 플레이 스코어
 
         // 스테이지 높으면 바로 갱신

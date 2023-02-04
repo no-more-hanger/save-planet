@@ -55,6 +55,11 @@ public class GameStaticData : MonoBehaviour {
         return PlayerPrefs.HasKey(KEY_NAME) ? PlayerPrefs.GetString(KEY_NAME) : "Guest";
     }
 
+    // is saved name
+    public bool isHasName() {
+        return PlayerPrefs.HasKey(KEY_NAME);
+    }
+
     // Player Data | save CurrentStage
     public void SaveCurrentStage(int stage) {
         PlayerPrefs.SetInt(KEY_CURRENT_STAGE, stage);

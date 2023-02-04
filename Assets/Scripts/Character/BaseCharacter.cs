@@ -55,9 +55,16 @@ public class BaseCharacter : MonoBehaviour {
 
         damage = 0;
         isGun = false;
-        isBalloon = true;
         bulletCnt = 0;
-        balloonCnt = 0;
+
+        isBalloon = GameStaticData._dataInstance.LoadCurrentStage() == 2;
+        balloonCnt = GameStaticData._dataInstance.LoadCurrentBalloonCnt();
+
+        if (isBalloon) {
+            for (int i = 0; i < balloonCnt; i++) {
+                CreateBalloon(Random.Range(0, 4));
+            }
+        }
 
         timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
     }
@@ -269,6 +276,7 @@ public class BaseCharacter : MonoBehaviour {
         GameObject.Find("Canvas").transform.Find("DyingPopup").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
         //GameObject.Find("PlayTimeText").GetComponent<TextMeshProUGUI>().text = timerController.GetTimeString();
+
     }
 
     public IEnumerator GetHealedRoutine() {
@@ -320,13 +328,20 @@ public class BaseCharacter : MonoBehaviour {
         }
     }
 
-    // 풍선 추가
-    public void AddBalloon(int cnt, int color) {
-        balloonCnt += cnt;
+    // 풍선 생성하기
+    public void CreateBalloon(int color) {
         GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
         balloonClone.GetComponent<CharacterBalloon>().SetColor(color);
         // 부모에 상속 정리
         balloonClone.transform.SetParent(transform.Find("Balloons"));
+    }
+
+    // 풍선 추가
+    public void AddBalloon(int cnt, int color) {
+        balloonCnt += cnt;
+        if (isBalloon) {
+            CreateBalloon(color);
+        }
     }
 
     // 풍선 제거

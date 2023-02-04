@@ -47,20 +47,23 @@ public class BaseElement : MonoBehaviour {
     /// </summary>
     /// <param name="collision"></param>
     protected void OnCollisionEnter2D(Collision2D collision) {
-        //if (collision.gameObject.CompareTag("Bullet")) { }
         // play animation if exist
         GetComponent<Collider2D>().enabled = false;
-        AdjustEffect();
+
+        if (collision.gameObject.CompareTag("Player")) {
+            AdjustEffect();
+        }
+
+        if (collision.gameObject.CompareTag("Bullet")) {
+            Destroy(collision.gameObject);
+        }
+
         // play animation
         if (anim != null) {
             anim.SetTrigger("disappear_trig");
         }
         // give particle effect if exist
-        if (particle != null) {
-            ParticleSystem collisionEffect = Instantiate(particle, transform.position, transform.rotation);
-            collisionEffect.Play();
-            Destroy(collisionEffect.gameObject, collisionEffect.main.duration);
-        }
+        PlayParticleEffect();
         // play sound effect
         if (soundEffect != null) {
             SoundManager._soundInstance.OnAudio(soundEffect);
@@ -80,6 +83,11 @@ public class BaseElement : MonoBehaviour {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
-
-
+    protected void PlayParticleEffect() {
+        if (particle != null) {
+            ParticleSystem collisionEffect = Instantiate(particle, transform.position, transform.rotation);
+            collisionEffect.Play();
+            Destroy(collisionEffect.gameObject, collisionEffect.main.duration);
+        }
+    }
 }

@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 8647419685356242757}
   - component: {fileID: 8647419685356242810}
   - component: {fileID: 8647419685356242809}
-  - component: {fileID: 8647419685356242814}
+  - component: {fileID: 3676704457800158466}
   m_Layer: 8
   m_Name: Satellite
   m_TagString: Obstacle
@@ -170,7 +170,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8647419685356242756}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.71, y: 1.92, z: 0}
   m_LocalScale: {x: 2.7673, y: 2.7673, z: 2.7673}
   m_ConstrainProportionsScale: 0
@@ -247,7 +247,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
---- !u!114 &8647419685356242814
+--- !u!114 &3676704457800158466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,10 +256,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8647419685356242756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bf6dd2605e0d49be8ec839661982de9, type: 3}
+  m_Script: {fileID: 11500000, guid: 9e352ef7a6c2f4e6eb1b4f2ef3911d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: {fileID: 8300000, guid: 87e2452fe2c754248926c9a9ab93a467, type: 3}
-  particle: {fileID: 8038344524183138615, guid: 0277167a12290af47801444830a2be97, type: 3}
-  destroyDelay: 0
-  damage: 10

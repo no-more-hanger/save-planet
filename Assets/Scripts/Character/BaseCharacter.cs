@@ -118,17 +118,6 @@ public class BaseCharacter : MonoBehaviour {
         // 총 소지 여부에 따라 Gun 비/활성화
         transform.Find("Gun").gameObject.SetActive(isGun);
 
-        // 풍선 생성
-        // 현재 풍선 개수 확인
-        if (isBalloon) {
-            int CurrentBalloonCnt = transform.Find("Balloons").childCount;
-            if (CurrentBalloonCnt < balloonCnt) {
-                GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
-                // 부모에 상속 정리
-                balloonClone.transform.SetParent(transform.Find("Balloons"));
-            }
-        }
-
         // 아이템
         transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 ? true : false);
         if (itemTimer <= 0) {
@@ -161,7 +150,7 @@ public class BaseCharacter : MonoBehaviour {
         // 이동 제어
         float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
         float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
-        
+
         if (isBalloon) {
             y += balloonCnt * balloonCoefficient;
         }
@@ -332,8 +321,12 @@ public class BaseCharacter : MonoBehaviour {
     }
 
     // 풍선 추가
-    public void AddBalloon(int cnt) {
+    public void AddBalloon(int cnt, int color) {
         balloonCnt += cnt;
+        GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
+        balloonClone.GetComponent<CharacterBalloon>().SetColor(color);
+        // 부모에 상속 정리
+        balloonClone.transform.SetParent(transform.Find("Balloons"));
     }
 
     // 풍선 제거
@@ -341,9 +334,9 @@ public class BaseCharacter : MonoBehaviour {
         if (balloonCnt <= 0) {
             return;
         }
-        transform.Find("Balloons").transform.GetChild(balloonCnt-1).GetComponent<CharacterBalloon>().DeleteBallon();
+        transform.Find("Balloons").transform.GetChild(balloonCnt - 1).GetComponent<CharacterBalloon>().DeleteBallon();
         if (balloonCnt - cnt <= 0) {
-            
+
             balloonCnt = 0;
         }
         else {

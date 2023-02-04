@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3093747725103160192}
   - component: {fileID: 7103400366235607152}
   - component: {fileID: 3854933817695443606}
+  - component: {fileID: 2164458133830105904}
   m_Layer: 0
   m_Name: CharacterBalloon
   m_TagString: Untagged
@@ -105,3 +106,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2164458133830105904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387576286032918067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 904db2b21588a3a46a3c6ad65216c429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 8300000, guid: 5c71382eaedf04571bc3a7aedacb2832, type: 3}

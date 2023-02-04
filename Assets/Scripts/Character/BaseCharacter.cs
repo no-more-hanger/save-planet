@@ -125,11 +125,14 @@ public class BaseCharacter : MonoBehaviour {
         // 총 소지 여부에 따라 Gun 비/활성화
         transform.Find("Gun").gameObject.SetActive(isGun);
 
-        // 아이템
-        transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 ? true : false);
+        // 아이템 speed up | 1, 2, 3 stage에 따라 그래픽 효과 다르게
         if (itemTimer <= 0) {
             SetSpeed(originSpeed);
         }
+        var stage = GameStaticData._dataInstance.LoadCurrentStage();
+        transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 && stage == 1 ? true : false);
+        transform.Find("Stage02Foot").gameObject.SetActive(itemTimer > 0 && stage == 2 ? true : false);
+        transform.Find("Stage03Foot").gameObject.SetActive(itemTimer > 0 && stage == 3 ? true : false);
     }
 
     // 랜덤 위치 얻기

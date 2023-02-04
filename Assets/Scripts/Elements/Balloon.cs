@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Balloon : BaseElement {
-    private int balloonCnt = 1;
     private int color;
 
     void Start() {
@@ -12,6 +11,6 @@ public class Balloon : BaseElement {
         anim.SetInteger("balloon_int", color);
     }
     protected override void AdjustEffect() {
-        playerScript.AddBalloon(balloonCnt, color);
+        playerScript.AddBalloon(color);
     }
 }

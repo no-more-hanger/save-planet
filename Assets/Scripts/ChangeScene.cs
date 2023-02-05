@@ -30,8 +30,10 @@ public class ChangeScene : MonoBehaviour {
             GameObject.Find("Canvas").transform.Find("CheckPopup").gameObject.SetActive(true);
             return;
         }
+        // 현재 3단계일 때, start 씬에서 이어하기는 3stage로 | 3stage 씬에서 깬 후, 이어하기는 엔딩으로
         // 3단계는 Ending 으로
-        if (stage <= 3) {
+        var sceneName = SceneManager.GetActiveScene().name;
+        if ((stage <= 3 && sceneName == "StartScene") || (stage < 3 && sceneName == "Stage03Scene")) {
             LoadNextScene();
         }
         else {

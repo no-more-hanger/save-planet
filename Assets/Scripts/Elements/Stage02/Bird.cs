@@ -15,11 +15,10 @@ public class Bird : BaseElement {
         MoveHorizontal();
     }
     protected override void AdjustEffect() {
+        playerScript.RemoveBalloon();
         playerScript.Hurt(10, transform.position);
-        playerScript.RemoveBalloon(1);
         GameObject runningBird =
         Instantiate(runningBirdPrefab, transform.position, transform.rotation);
         runningBird.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
-        Debug.Log(runningBird.GetComponent<SpriteRenderer>().sprite);
     }
 }

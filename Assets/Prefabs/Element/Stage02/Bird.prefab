@@ -108,6 +108,39 @@ MonoBehaviour:
   - {fileID: -1919045098, guid: 6b2da3845870f5e45a4cb6b4c800c746, type: 3}
   - {fileID: -870637495, guid: 6b2da3845870f5e45a4cb6b4c800c746, type: 3}
   runningBirdPrefab: {fileID: 7098684068546760318, guid: fa1ee4de6b9cd441e93eb58a4a424845, type: 3}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0026913
+      value: 0.49361324
+      inSlope: -0.0092260875
+      outSlope: -0.0092260875
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.006073
+      value: -0.000022888184
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 1
+    m_RotationOrder: 4
 --- !u!58 &555781618755873875
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -26,7 +26,8 @@ public class Disaster : BaseElement {
 
     private void FixedUpdate() {
         transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
-        if (isActive) {
+        // apply when player.layer is "Player"
+        if (isActive && player.layer == 6) {
             ApplyGravity(player);
         }
         else {

@@ -26,12 +26,14 @@ public class Disaster : BaseElement {
 
     private void FixedUpdate() {
         transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
-        // apply when player.layer is "Player"
-        if (isActive && player.layer == 6) {
-            ApplyGravity(player);
-        }
-        else {
+
+        // after hit
+        if (!isActive) {
             ChangeScale(-2f);
+        }
+        // before hit && player is not in damaged layer
+        else if (player.layer == LayerMask.NameToLayer("Player")) {
+            ApplyGravity(player);
         }
     }
 

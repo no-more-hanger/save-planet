@@ -21,7 +21,7 @@ public class BaseStage : MonoBehaviour {
     [SerializeField] protected float minIntervalY, maxIntervalY; // interval between items
 
 
-    protected void Awake() {
+    protected void Start() {
         player = GameObject.FindWithTag("Player");
         player.GetComponent<BaseCharacter>().SetIsMoveX(false);
         player.GetComponent<BaseCharacter>().SetIsMoveY(false);
@@ -70,6 +70,7 @@ public class BaseStage : MonoBehaviour {
     // exception side
     private void SetSide(GameObject obj, float x, float offset, float rotaionValue) {
         float width = Camera.main.orthographicSize / offset;
+        width = GameStaticData._dataInstance.GetResponsivePoint(width);
 
         if (x < 0) { // left
             obj.transform.position = new Vector2(-width, obj.transform.position.y);
@@ -97,6 +98,7 @@ public class BaseStage : MonoBehaviour {
 
                 // set creating point random
                 float x = Random.Range(listIntervalX[i], listIntervalX[i + 1]);
+                x = GameStaticData._dataInstance.GetResponsivePoint(x);
                 Vector2 creatingPoint = new Vector2(x, y);
 
                 // set item type by item percentage

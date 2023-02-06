@@ -114,4 +114,8 @@ public class GameStaticData : MonoBehaviour {
 
         return string.Format("{0, 2:00} : {1, 2:00}", min, sec - min * 60);
     }
+
+    public float GetResponsivePoint(float x) {
+        return x * Screen.width / Screen.height * 2560 / 1440;
+    }
 }

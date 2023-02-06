@@ -75,11 +75,11 @@ public class BaseElement : MonoBehaviour {
         transform.Translate(direction * Time.deltaTime);
 
         // fish movement (go right)
-        if (transform.position.x < -2.5) {
+        if (transform.position.x < GameStaticData._dataInstance.GetResponsivePoint(-2.5f)) {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
         // fish movement (go left)
-        else if (transform.position.x > 2.5) {
+        else if (transform.position.x > GameStaticData._dataInstance.GetResponsivePoint(2.5f)) {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }

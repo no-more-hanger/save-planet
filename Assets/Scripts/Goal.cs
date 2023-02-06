@@ -13,11 +13,11 @@ public class Goal : MonoBehaviour {
         GameObject.Find("Canvas").transform.Find("EndingPopup").gameObject.SetActive(true);
         GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnPauseGame();
         // save balloon count after stage 1
-        if (GameStaticData._dataInstance.currentStage == 1) {
+        if (GameStaticData._dataInstance.LoadCurrentStage() == 1) {
             GameStaticData._dataInstance.SaveCurrentBalloonCnt(collision.gameObject.GetComponent<BaseCharacter>().GetBalloonCnt());
         }
         // reset balloon after clear stage 2
-        else if (GameStaticData._dataInstance.currentStage == 2) {
+        else if (GameStaticData._dataInstance.LoadCurrentStage() == 2) {
             GameStaticData._dataInstance.SaveCurrentBalloonCnt(0);
         }
     }

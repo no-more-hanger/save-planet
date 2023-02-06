@@ -5,20 +5,34 @@ using UnityEngine;
 public class Bird : BaseElement {
     [SerializeField] private Sprite[] birdImg;
     [SerializeField] private GameObject runningBirdPrefab;
-    private SpriteRenderer spriteRenderer;
+    public AnimationCurve animationCurve;
+
+    private int birdNum;
+    private float timer = 0.0f;
+    private float posY;
+    private float[] speed = { 1.5f, 1.25f, 1f, 0.75f, 0.5f };
+
     private void Start() {
-        direction = Vector3.left;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = birdImg[Random.Range(0, birdImg.Length)];
+        birdNum = Random.Range(0, birdImg.Length);
+        GetComponent<SpriteRenderer>().sprite = birdImg[birdNum];
+        posY = transform.position.y;
     }
     private void FixedUpdate() {
-        MoveHorizontal();
+        timer += Time.deltaTime;
+        transform.Translate(new Vector3(-speed[birdNum] * Time.deltaTime, posY + animationCurve.Evaluate(timer) * speed[birdNum] - transform.position.y));
+
+        if (transform.position.x < -2.5) {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else if (transform.position.x > 2.5) {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
     }
     protected override void AdjustEffect() {
         playerScript.RemoveBalloon();
         playerScript.Hurt(10, transform.position);
         GameObject runningBird =
         Instantiate(runningBirdPrefab, transform.position, transform.rotation);
-        runningBird.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
+        runningBird.GetComponent<SpriteRenderer>().sprite = birdImg[birdNum];
     }
 }

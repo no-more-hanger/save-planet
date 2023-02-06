@@ -29,6 +29,17 @@ public class EffectManager : MonoBehaviour
         StartCoroutine(FadeEffect(0f, time));
     }
 
+    // fade out & in
+    public void FadeOutIn(float time) {
+        gameObject.SetActive(true);
+        FadeOut(time / 2);
+        Invoke(nameof(FadeInShort), time / 2);
+    }
+
+    private void FadeInShort() {
+        FadeIn(0.5f);
+    }
+
     IEnumerator FadeEffect(float start, float time) {
         Image image = GetComponent<Image>();
         image.color = new Color(image.color.r, image.color.g, image.color.b, start);

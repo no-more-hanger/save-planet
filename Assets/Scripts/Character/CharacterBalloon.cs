@@ -10,20 +10,12 @@ public class CharacterBalloon : MonoBehaviour {
         anim = GetComponent<Animator>();
     }
 
-    // Start is called before the first frame update
-    void Start() {
-        Vector3 dir = GameObject.FindWithTag("Player").transform.position - transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-    }
-
     public void SetColor(int number) {
         anim.SetInteger("balloon_int", number);
     }
 
-    public void DeleteBallon() {
+    public void DeleteBalloon() {
         // play animation
-        Debug.Log(anim);
         anim.SetTrigger("disappear_trig");
 
         // play sound effect

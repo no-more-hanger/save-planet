@@ -148,6 +148,9 @@ public class BaseCharacter : MonoBehaviour {
 
     // 이동
     public void Move() {
+        // 목표 Y limit
+        float limitY = GameObject.Find("StageManager").gameObject.GetComponent<BaseStage>().GetStageHeight();
+
         // 이동 제어
         float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
         float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
@@ -161,7 +164,10 @@ public class BaseCharacter : MonoBehaviour {
 
         // 한 프레임 당 이동거리 계산
         float moveX = x * speed * Time.deltaTime;
-        float moveY = ((y < 0 ? 0 : y) * speed - gravityScale) * Time.deltaTime; // 아래로는 못 가게 막기
+        if ((y > 0 && transform.position.y > limitY) || y < 0) {
+            y = 0;
+        }
+        float moveY = (y * speed - gravityScale) * Time.deltaTime; // 아래로는 못 가게 막기
 
         // Idle
         if (x == 0.0f) {

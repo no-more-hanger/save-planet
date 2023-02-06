@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseStage : MonoBehaviour
-{
+public class BaseStage : MonoBehaviour {
     protected GameObject player; // character
     protected float fadeTime = 3f;
 
@@ -59,9 +58,9 @@ public class BaseStage : MonoBehaviour
         float random = Random.Range(0f, 100f);
         float percentage = 0f;
 
-        for(int i = 0; i < itemPercentage.Length; i++) {
+        for (int i = 0; i < itemPercentage.Length; i++) {
             percentage += itemPercentage[i];
-            if(random < percentage) {
+            if (random < percentage) {
                 return i;
             }
         }
@@ -107,7 +106,8 @@ public class BaseStage : MonoBehaviour
 
                 if (itemPrefabs[itemType].name == "Seaweeds") { // exception seaweeds
                     SetSide(temp, x, 2.2f, 70f);
-                }else if(itemPrefabs[itemType].name == "Satellite") { // exception satellite
+                }
+                else if (itemPrefabs[itemType].name == "Satellite") { // exception satellite
                     SetSide(temp, x, 1.75f, 0f);
                 }
             }
@@ -157,7 +157,7 @@ public class BaseStage : MonoBehaviour
     // get stage length
     public float GetStageHeight() {
         float oneHeight = backgroundPrefabs[0].GetComponent<SpriteRenderer>().sprite.bounds.size.y * backgroundPrefabs[0].GetComponent<Transform>().localScale.y;
-        return backgroundNum * oneHeight;
+        return backgroundNum * oneHeight - oneHeight / 3.5f;
     }
 
     // detect end stage (maybe this script apply in BasePlayer.cs)

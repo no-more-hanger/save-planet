@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class OpeningManager : MonoBehaviour
 {
@@ -73,19 +74,38 @@ public class OpeningManager : MonoBehaviour
         return newChat;
     }
 
+
+
     private void ChatSetting(string name, string chat) {
         isTyping = true;
         if (name == "나") {
             LeftChatting();
         }
-        else {
+        else if (name == "???") {
             RightChatting();
+        }
+        else {
+            if (name == "") { // effect
+                isAble = false;
+                fade.FadeOutIn(time);
+                Invoke(nameof(IsAbleTrue), time);
+            }
+
+            leftPerson.DeleteBlurr();
+            rightPerson.DeleteBlurr();
         }
         talkPanelName.SkipTyping(name);
         talkPanelChat.TextTyping(chat);
     }
 
+    private void IsAbleTrue() {
+        isAble = true;
+    }
+
     private void Update() {
+        if (isAble && isTyping && talkPanelChat.GetComponent<TextMeshProUGUI>().text == chatList[curChat].chat) {
+            isTyping = false;
+        }
         if (isAble && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
             if (isTyping) { //skip
                 isTyping = false;

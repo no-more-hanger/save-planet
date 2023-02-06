@@ -46,6 +46,11 @@ public class BaseCharacter : MonoBehaviour {
 
     private float alienAttackTimer = 0.0f;
 
+    float balloonUnitRadius;
+    int balloonUnitCnt;
+    int balloonLayer;
+    int balloonLayerCnt;
+
     private void Start() {
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -60,13 +65,19 @@ public class BaseCharacter : MonoBehaviour {
         isBalloon = GameStaticData._dataInstance.LoadCurrentStage() == 2;
         balloonCnt = GameStaticData._dataInstance.LoadCurrentBalloonCnt();
 
+        timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
+
+        // balloon layout
+        balloonUnitRadius = 0.5f;
+        balloonUnitCnt = 4;
+        balloonLayer = 1;
+        balloonLayerCnt = 0;
+
         if (isBalloon) {
             for (int i = 0; i < balloonCnt; i++) {
                 CreateBalloon(Random.Range(0, 4));
             }
         }
-
-        timerController = GameObject.FindWithTag("Timer").GetComponent<TimerController>();
     }
 
     // class get, set
@@ -125,31 +136,14 @@ public class BaseCharacter : MonoBehaviour {
         // 총 소지 여부에 따라 Gun 비/활성화
         transform.Find("Gun").gameObject.SetActive(isGun);
 
-        // 아이템
-        transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 ? true : false);
+        // 아이템 speed up | 1, 2, 3 stage에 따라 그래픽 효과 다르게
         if (itemTimer <= 0) {
             SetSpeed(originSpeed);
         }
-    }
-
-    // 랜덤 위치 얻기
-    Vector3 GetRandomPosition() {
-        GameObject balloonRange = transform.Find("Balloons").gameObject; // 풍선 생성 범위
-        BoxCollider2D rangeCollider = balloonRange.GetComponent<BoxCollider2D>();
-
-        Vector3 originPosition = balloonRange.transform.position;
-        // 콜라이더의 size
-        float rangeX = rangeCollider.bounds.size.x;
-        float rangeY = rangeCollider.bounds.size.y;
-        // 콜라이더의 offset
-        Vector3 offset = rangeCollider.offset;
-
-        rangeX = Random.Range((rangeX / 2) * -1, rangeX / 2);
-        rangeY = Random.Range((rangeY / 2) * -1, rangeY / 2);
-
-        Vector3 RandomPostion = new Vector3(rangeX, rangeY, 0f) + offset;
-        Vector3 respawnPosition = originPosition + RandomPostion;
-        return respawnPosition;
+        var stage = GameStaticData._dataInstance.LoadCurrentStage();
+        transform.Find("DuckFoot").gameObject.SetActive(itemTimer > 0 && stage == 1 ? true : false);
+        transform.Find("Stage02Foot").gameObject.SetActive(itemTimer > 0 && stage == 2 ? true : false);
+        transform.Find("Stage03Foot").gameObject.SetActive(itemTimer > 0 && stage == 3 ? true : false);
     }
 
     // 이동
@@ -210,8 +204,9 @@ public class BaseCharacter : MonoBehaviour {
         if (damage >= 100) {
             GetComponent<Collider2D>().enabled = false;
             StartCoroutine(Die());          // 죽음 효과
-            effect.Play();                  // 스테이지 01 : 거품 이펙트
-
+            if (GameStaticData._dataInstance.LoadCurrentStage() == 1) {
+                effect.Play(); // 스테이지 01 : 거품 이펙트
+            }
             Camera.main.GetComponent<CameraController>()?.SetTarget(null);
 
         }
@@ -250,9 +245,6 @@ public class BaseCharacter : MonoBehaviour {
     // 죽음
     public IEnumerator Die() {
         for (int i = 0; i <= 200; i++) {
-            //rigidbody.simulated = false;
-            //spriteRenderer.enabled = false;
-
             // 현재 캐릭터 위치
             posX = gameObject.transform.position.x;
             posY = gameObject.transform.position.y;
@@ -268,6 +260,8 @@ public class BaseCharacter : MonoBehaviour {
 
             //transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer / loopTime) * floatingY);
             transform.position = new Vector3(posX, posY + dieAnimCurve.Evaluate(timer) * floatingY);
+            // 게임 오브젝트 기준으로 회전
+            transform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, i) * Time.deltaTime);
             yield return new WaitForSeconds(0.01f);
         }
 
@@ -330,32 +324,52 @@ public class BaseCharacter : MonoBehaviour {
 
     // 풍선 생성하기
     public void CreateBalloon(int color) {
-        GameObject balloonClone = Instantiate(balloonPrefab, GetRandomPosition(), Quaternion.identity);
+        float ratio = (float)balloonLayerCnt / (balloonUnitCnt * balloonLayer);
+        float distance = balloonUnitRadius * balloonLayer;
+        if (transform.localScale.x != 1) {
+            ratio = 1 - ratio;
+        }
+
+        Quaternion rotation = Quaternion.Slerp(Quaternion.Euler(0, 0, 45), Quaternion.Euler(0, 0, -45), ratio);
+        float angle = Mathf.Deg2Rad * (rotation.eulerAngles.z + 90);
+        Vector3 position = new Vector3(distance * Mathf.Cos(angle), distance * Mathf.Sin(angle), 0) + transform.position;
+
+        GameObject balloonClone = Instantiate(balloonPrefab, position, rotation);
+
         balloonClone.GetComponent<CharacterBalloon>().SetColor(color);
         // 부모에 상속 정리
         balloonClone.transform.SetParent(transform.Find("Balloons"));
+        balloonClone.transform.SetAsFirstSibling();
+
+        if (balloonLayerCnt++ == balloonUnitCnt * balloonLayer) {
+            balloonLayer++;
+            balloonLayerCnt = 0;
+        }
     }
 
     // 풍선 추가
-    public void AddBalloon(int cnt, int color) {
-        balloonCnt += cnt;
+    public void AddBalloon(int color) {
         if (isBalloon) {
             CreateBalloon(color);
         }
+        balloonCnt++;
     }
 
     // 풍선 제거
-    public void RemoveBalloon(int cnt) {
-        if (balloonCnt <= 0) {
+    public void RemoveBalloon() {
+        if (balloonCnt <= 0 || noDamageTimer > 0) {
             return;
         }
-        transform.Find("Balloons").transform.GetChild(balloonCnt - 1).GetComponent<CharacterBalloon>().DeleteBallon();
-        if (balloonCnt - cnt <= 0) {
 
-            balloonCnt = 0;
-        }
-        else {
-            balloonCnt -= cnt;
+        Transform balloon = transform.Find("Balloons").transform.GetChild(0);
+        balloon.SetParent(null);
+        balloon.gameObject.GetComponent<CharacterBalloon>().DeleteBalloon();
+
+        balloonCnt--;
+
+        if (--balloonLayerCnt < 0) {
+            balloonLayer--;
+            balloonLayerCnt = balloonUnitCnt * balloonLayer;
         }
     }
 }

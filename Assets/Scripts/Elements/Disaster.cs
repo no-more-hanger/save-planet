@@ -11,13 +11,16 @@ public class Disaster : BaseElement {
     private bool isActive;
 
     [Header("Adjust Gravity")]
-    private float gravityBound = 1.8f;
+    private float gravityBound;
     private float gravityConstant = 1.2f;
 
     [Header("Effect")]
-    private float scaleUpperBound = 3;
+    private float scaleUpperBound;
 
     private void Start() {
+        gravityBound = GameStaticData._dataInstance.GetResponsivePoint(1.8f);
+        scaleUpperBound = GameStaticData._dataInstance.GetResponsivePoint(3f);
+
         transform.Rotate(Vector3.forward);
         initialScale = transform.localScale;
         destroyDelay = 5.0f;

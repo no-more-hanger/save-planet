@@ -17,14 +17,15 @@ public class Squid : BaseElement {
     }
 
     private IEnumerator SpreadInk() {
-        float[] dx = { -2.5f, 0, -2.5f, 0 };
-        float[] dy = { 0, 0, -5, -5 };
+        float responsiveUnit = GameStaticData._dataInstance.GetResponsivePoint(1);
+        float[] dx = { -2.5f * responsiveUnit, 0, -2.5f * responsiveUnit, 0 };
+        float[] dy = { 0, 0, -5 * responsiveUnit, -5 * responsiveUnit };
 
         float y = Camera.main.transform.position.y;
 
         for (int i = 0; i < 4; i++) {
             SoundManager._soundInstance.OnAudio(inkSound);
-            inkInstance[i] = Instantiate(inkImg[i], new Vector3(Random.Range(dx[i], dx[i] + 2), Random.Range(y + dy[i], y + dy[i] + 4), 0), transform.rotation);
+            inkInstance[i] = Instantiate(inkImg[i], new Vector3(Random.Range(dx[i], dx[i] + 2 * responsiveUnit), Random.Range(y + dy[i], y + dy[i] + 4 * responsiveUnit), 0), transform.rotation);
             yield return new WaitForSeconds(0.1f);
         }
 

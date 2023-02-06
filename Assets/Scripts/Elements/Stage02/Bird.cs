@@ -21,10 +21,10 @@ public class Bird : BaseElement {
         timer += Time.deltaTime;
         transform.Translate(new Vector3(-speed[birdNum] * Time.deltaTime, posY + animationCurve.Evaluate(timer) * speed[birdNum] - transform.position.y));
 
-        if (transform.position.x < -2.5) {
+        if (transform.position.x < GameStaticData._dataInstance.GetResponsivePoint(-2.5f)) {
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if (transform.position.x > 2.5) {
+        else if (transform.position.x > GameStaticData._dataInstance.GetResponsivePoint(2.5f)) {
             transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }

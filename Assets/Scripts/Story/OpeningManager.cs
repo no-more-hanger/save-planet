@@ -40,7 +40,7 @@ public class OpeningManager : MonoBehaviour
 
     private void StoryEnd() {
         isAble = false;
-        fade.FadeOut(time);
+        fade.FadeOut(time / 2);
         Invoke(nameof(LastChat), time);
     }
 

@@ -4,11 +4,14 @@ using UnityEngine;
 using TMPro;
 
 public class BaseCharacter : MonoBehaviour {
+    private string LAYER_PLAYER = "Player";
+    private string LAYER_PLAYER_DAMAGED = "PlayerDamaged";
+
     private TimerController timerController;
 
     private int effectDuration = 100;       // 효과 지속 상태 | 1초
     private float gravityScale = 0.5f;      // 밑으로 끌어내릴(중력) 크기 | transform으로 작용
-    private float noDamageTimer = 1f;       // 공격 받은 후, 무적 시간
+    private float noDamageTimer = 0f;       // 공격 받은 후, 무적 시간
 
     private Animator anim;                  // 애니메이션
     private SpriteRenderer spriteRenderer;  // 외관
@@ -128,9 +131,13 @@ public class BaseCharacter : MonoBehaviour {
 
         // 무적 시간 제어
         noDamageTimer -= Time.deltaTime;
+        gameObject.layer = LayerMask.NameToLayer(noDamageTimer > 0 ? LAYER_PLAYER_DAMAGED : LAYER_PLAYER);
+        spriteRenderer.color = new Color(1, 1, 1, noDamageTimer > 0 ? 0.4f : 1); // 투명도 0.4 : 무적으로 변경되었음
+
 
         alienAttackTimer -= Time.deltaTime;
     }
+
 
     protected void StateUpdate() {
         // 총 소지 여부에 따라 Gun 비/활성화
@@ -200,7 +207,9 @@ public class BaseCharacter : MonoBehaviour {
 
     // 데미지 입음
     public void Hurt(float hurt, Vector3 targetPos) {
-        if (noDamageTimer > 0) return;      // 무적일 땐 return
+        if (noDamageTimer > 0) {
+            return;      // 무적일 땐 return
+        }
 
         float velocity = 0.05f;              // 반동 시, 튕겨나가는 정도
 

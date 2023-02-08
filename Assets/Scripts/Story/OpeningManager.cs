@@ -106,7 +106,7 @@ public class OpeningManager : MonoBehaviour
         if (isAble && isTyping && talkPanelChat.GetComponent<TextMeshProUGUI>().text == chatList[curChat].chat) {
             isTyping = false;
         }
-        if (isAble && (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))) {
+        if (isAble && (Input.GetKeyDown(KeyCode.A) || Input.GetMouseButtonDown(0))) {
             if (isTyping) { //skip
                 isTyping = false;
                 talkPanelChat.SkipTyping(chatList[curChat].chat);

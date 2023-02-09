@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class BaseStage : MonoBehaviour {
     protected GameObject player; // character
@@ -29,6 +30,8 @@ public class BaseStage : MonoBehaviour {
         CreateBackground(); // create background
         CreateItems(); // create items
         FadeIn(fadeTime); // fade in
+
+        EventSystem.current.GetComponent<BackController>().OnNotAbleKey(); // pause button deactive
     }
 
     // create background

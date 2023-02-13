@@ -81,8 +81,8 @@ public class SettingManager : MonoBehaviour {
             EventSystem.current.GetComponent<KeyNavigator>()?.SetLastSelectObj();
 
             if (popupName == "SettingPopup") {
-                GameObject.Find("Canvas").transform.Find("PausePopup").gameObject?.SetActive(true);
-                GameObject.Find("Canvas").transform.Find("PausePopup").gameObject?.GetComponent<KeyNavigator>().SetLastSelectObj();
+                GameObject.Find("Canvas").transform.Find("PausePopup")?.gameObject.SetActive(true);
+                GameObject.Find("Canvas").transform.Find("PausePopup")?.gameObject.GetComponent<KeyNavigator>().SetLastSelectObj();
             }
             if (popupName == "PausePopup") {
                 EventSystem.current.GetComponent<BackController>()?.OnAbleKey(); // pause button activate

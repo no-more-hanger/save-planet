@@ -19,6 +19,7 @@ public class BackController : MonoBehaviour
     void Update()
     {
         if (isAble && Input.GetKeyDown(KeyCode.B)) {
+            SoundManager._soundInstance.OnButtonAudio();
             backBtn.onClick.Invoke();
         }       
     }

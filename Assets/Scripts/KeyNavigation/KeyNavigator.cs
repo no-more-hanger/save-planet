@@ -7,24 +7,29 @@ using UnityEngine.UI;
 public class KeyNavigator : MonoBehaviour
 {
     EventSystem system;
-    public GameObject firstSelectObj;
+    public GameObject firstSelectedObj;
+    private GameObject lastSelectedObj = null;
     public bool useNavigate = false;
-    private bool isReset = true;
 
-    void Start() {
+    void Awake() {
         system = EventSystem.current;
-        system.SetSelectedGameObject(firstSelectObj, new BaseEventData(system));
     }
 
-    public void IsReset() {
-        isReset = true;
+    public void SetFirstSelectObj() {
+        system.SetSelectedGameObject(firstSelectedObj, new BaseEventData(system));
+    }
+
+    public void SetLastSelectObj() {
+        system.SetSelectedGameObject(lastSelectedObj, new BaseEventData(system));
     }
 
     void Update() {
-        if (system.currentSelectedGameObject == null && isReset) {
-            isReset = false;
-            system.SetSelectedGameObject(firstSelectObj, new BaseEventData(system));
+        if (system.currentSelectedGameObject == null) {
+            system.SetSelectedGameObject(firstSelectedObj, new BaseEventData(system));
         }
+
+        // save current selected object
+        lastSelectedObj = system.currentSelectedGameObject;
 
         if (useNavigate) {
             Selectable next = null;

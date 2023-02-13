@@ -1245,7 +1245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cc8c7e8e09f35408c47d4e9114820b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelectObj: {fileID: 1115072476}
+  firstSelectedObj: {fileID: 1115072476}
+  useNavigate: 0
 --- !u!1001 &519999643
 PrefabInstance:
   m_ObjectHideFlags: 0

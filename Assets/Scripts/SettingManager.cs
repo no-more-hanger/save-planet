@@ -74,11 +74,18 @@ public class SettingManager : MonoBehaviour {
         bool curActive = popup.activeSelf;
         popup.SetActive(!curActive);
 
-        EventSystem.current.GetComponent<KeyNavigator>()?.IsReset(); // reset first selected obj
-        if (curActive) {
+        if (curActive) { // turn off
+            if (EventSystem.current.GetComponent<KeyNavigator>()) {
+                EventSystem.current.GetComponent<KeyNavigator>().enabled = true;
+            }
+            EventSystem.current.GetComponent<KeyNavigator>()?.SetLastSelectObj();
             EventSystem.current.GetComponent<BackController>()?.OnAbleKey(); // pause button activate
         }
-        else {
+        else { // turn on
+            if (EventSystem.current.GetComponent<KeyNavigator>()) {
+                EventSystem.current.GetComponent<KeyNavigator>().enabled = false;
+            }
+            popup.GetComponent<KeyNavigator>()?.SetFirstSelectObj();
             EventSystem.current.GetComponent<BackController>()?.OnNotAbleKey(); // pause button deactive
         }
     }

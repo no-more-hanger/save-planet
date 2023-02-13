@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cc8c7e8e09f35408c47d4e9114820b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelectObj: {fileID: 8102735924023754567}
+  firstSelectedObj: {fileID: 8102735924023754567}
   useNavigate: 0
 --- !u!1001 &2698074387391568601
 PrefabInstance:
@@ -185,7 +185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -367,7 +367,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_Navigation.m_Mode
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -529,7 +529,7 @@ PrefabInstance:
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 
-      objectReference: {fileID: 7744219897423354282}
+      objectReference: {fileID: 4148112831758577385}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_Navigation.m_SelectOnLeft
       value: 
@@ -714,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_Navigation.m_SelectOnUp
       value: 
-      objectReference: {fileID: 4148112831758577385}
+      objectReference: {fileID: 7744219897423354282}
     - target: {fileID: 6125967760569050496, guid: 1fff931b0826ec84cabbc25bed993242, type: 3}
       propertyPath: m_Navigation.m_SelectOnDown
       value: 

@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cc8c7e8e09f35408c47d4e9114820b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelectObj: {fileID: 6802744243325062000}
+  firstSelectedObj: {fileID: 6802744243325062000}
   useNavigate: 0
 --- !u!1 &6802744243148995104
 GameObject:
@@ -261,12 +261,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnUp: {fileID: 6802744243325062014}
+    m_SelectOnDown: {fileID: 6802744243325062014}
+    m_SelectOnLeft: {fileID: 6802744243325062014}
+    m_SelectOnRight: {fileID: 6802744243325062014}
   m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}

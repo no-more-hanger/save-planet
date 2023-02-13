@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11cc8c7e8e09f35408c47d4e9114820b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSelectObj: {fileID: 308604781}
+  firstSelectedObj: {fileID: 308604781}
   useNavigate: 1
 --- !u!1 &1121227460
 GameObject:

@@ -37,7 +37,7 @@ public class GunController : MonoBehaviour {
     }
 
     private void Shooting() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.A)) {
             gameObject.transform.parent.gameObject.GetComponent<BaseCharacter>().ShootGun();
             GameObject temp = Instantiate(bulletPrefab, gameObject.transform.parent.transform.position, Quaternion.identity); // create bullet
             temp.transform.localEulerAngles = new Vector3(0f, 0f, 90f);

@@ -13,6 +13,7 @@ public class KeyNavigator : MonoBehaviour
 
     void Awake() {
         system = EventSystem.current;
+        system.SetSelectedGameObject(firstSelectedObj, new BaseEventData(system));
     }
 
     public void SetFirstSelectObj() {

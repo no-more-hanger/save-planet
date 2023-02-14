@@ -57,13 +57,16 @@ public class BaseStage : MonoBehaviour {
         return startPoint + height;
     }
 
-    private int ChooseItem() {
+    private int ChooseItem(int previousItem) {
         float random = Random.Range(0f, 100f);
         float percentage = 0f;
 
         for (int i = 0; i < itemPercentage.Length; i++) {
             percentage += itemPercentage[i];
             if (random < percentage) {
+                if (previousItem == i) { // block previous choose item
+                    return ChooseItem(previousItem);
+                }
                 return i;
             }
         }
@@ -88,14 +91,21 @@ public class BaseStage : MonoBehaviour {
     // create items
     private void CreateItems() {
         float currentY = player.transform.position.y + 2f; // current y point
+        float stageHeight = GetStageHeight() - 2f;
         while (itemNum > 0) {
             // set item cnt in line
-            int num = listIntervalX.Length - 1; // Random.Range(1, listIntervalX.Length);
+            int num = listIntervalX.Length; // Random.Range(1, listIntervalX.Length);
             num = Mathf.Min(num, itemNum);
 
             float y = currentY + Random.Range(minIntervalY, maxIntervalY);
             currentY = y;
-            for (int i = 0; i < num; i++) {
+
+            if (currentY >= stageHeight) { // manage create item under goal line
+                break;
+            }
+
+            int previousItem = -1;
+            for (int i = 0; i < num; i += 2) {
                 // item minus
                 itemNum--;
 
@@ -105,7 +115,8 @@ public class BaseStage : MonoBehaviour {
                 Vector2 creatingPoint = new Vector2(x, y);
 
                 // set item type by item percentage
-                int itemType = ChooseItem();
+                int itemType = ChooseItem(previousItem);
+                previousItem = itemType;
                 GameObject temp = Instantiate(itemPrefabs[itemType], creatingPoint, Quaternion.identity);
                 temp.transform.SetParent(this.gameObject.transform.Find("Item").transform);
 

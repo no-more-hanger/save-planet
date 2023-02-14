@@ -28,22 +28,17 @@ public class GameStaticData : MonoBehaviour {
     private string KEY_MAX_SCORE = "MaxScore"; //최고 기록(합산된 점수) ← 각 스테이지 완료한 시점에서 갱신 확인
     private string KEY_CURRENT_BALLOON_CNT = "CurrentBalloonCnt"; // 현재 풍선 개수
 
-    void Awake() {
-        _dataInstance = this;
-    }
-
-    private void Start() {
+    private void Awake() {
         var obj = FindObjectsOfType<GameStaticData>();
 
         if (obj.Length == 1) {
+            _dataInstance = this;
             DontDestroyOnLoad(gameObject);
         }
         else {
             Destroy(gameObject);
         }
     }
-
-
 
     // Player Data | save name
     public void SaveName(string value) {

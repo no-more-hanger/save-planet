@@ -52,8 +52,14 @@ MonoBehaviour:
   backgroundBlack: {fileID: 0}
   itemNum: 0
   itemPrefabs: []
-  minIntervalY: 0
-  maxIntervalY: 0
+  itemPercentage: []
+  listIntervalX:
+  - -2.5
+  - -0.5
+  - 0.5
+  - 2.5
+  minIntervalY: 1
+  maxIntervalY: 2.5
 --- !u!1 &3115510442723414396
 GameObject:
   m_ObjectHideFlags: 0

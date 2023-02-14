@@ -4990,6 +4990,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   bulletPrefab: {fileID: 6517039205549848125, guid: 63680c9cc90daeb4e86d9d50c3bc71f3, type: 3}
+  soundEffect: {fileID: 8300000, guid: 033b1daf4512444018111f90f909d172, type: 3}
 --- !u!1 &5189661058729856311
 GameObject:
   m_ObjectHideFlags: 0

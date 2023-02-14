@@ -27,7 +27,7 @@ public class ChangeScene : MonoBehaviour {
 
         // 기록 없으면 return
         if (stage == 0) {
-            GameObject.Find("Canvas").transform.Find("CheckPopup").gameObject.SetActive(true);
+            GameObject.Find("Canvas").transform.Find("SettingPopup").GetComponent<SettingManager>().OnTogglePopup("CheckPopup");
             return;
         }
 

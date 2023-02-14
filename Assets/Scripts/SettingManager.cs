@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
@@ -21,16 +22,6 @@ public class SettingManager : MonoBehaviour {
         bgmSlider.value = GameStaticData._dataInstance.bgmVolume;
         soundSlider.value = GameStaticData._dataInstance.soundVolume;
         backgroundMusic = GameObject.Find("BackgroundMusic");
-    }
-
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.A)) {
-            // effect sound play
-            SoundManager._soundInstance.OnButtonAudio();
-
-            // inactivate object
-            this.gameObject.SetActive(false);
-        }
     }
 
     void SettingOnOffText(bool value, TextMeshProUGUI text) {
@@ -82,6 +73,31 @@ public class SettingManager : MonoBehaviour {
         GameObject popup = GameObject.Find("Canvas").transform.Find(popupName).gameObject;
         bool curActive = popup.activeSelf;
         popup.SetActive(!curActive);
+
+        if (curActive) { // turn off
+            if (EventSystem.current.GetComponent<KeyNavigator>()) {
+                EventSystem.current.GetComponent<KeyNavigator>().enabled = true;
+            }
+            EventSystem.current.GetComponent<KeyNavigator>()?.SetLastSelectObj();
+
+            if (popupName == "SettingPopup") {
+                GameObject.Find("Canvas").transform.Find("PausePopup")?.gameObject.SetActive(true);
+                GameObject.Find("Canvas").transform.Find("PausePopup")?.gameObject.GetComponent<KeyNavigator>().SetLastSelectObj();
+            }
+            if (popupName == "PausePopup") {
+                EventSystem.current.GetComponent<BackController>()?.OnAbleKey(); // pause button activate
+            }
+        }
+        else { // turn on
+            if (EventSystem.current.GetComponent<KeyNavigator>()) {
+                EventSystem.current.GetComponent<KeyNavigator>().enabled = false;
+            }
+            if (popupName == "SettingPopup") {
+                GameObject.Find("PausePopup")?.SetActive(false);
+            }
+            popup.GetComponent<KeyNavigator>()?.SetFirstSelectObj();
+            EventSystem.current.GetComponent<BackController>()?.OnNotAbleKey(); // pause button deactive
+        }
     }
 
     // pause game
@@ -95,6 +111,8 @@ public class SettingManager : MonoBehaviour {
     public void StartCountDown() {
         GameObject temp = Instantiate(countdownObj, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
         temp.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+
+        EventSystem.current.GetComponent<BackController>().OnNotAbleKey(); // pause button deactivate
     }
 
     // continue game
@@ -104,5 +122,7 @@ public class SettingManager : MonoBehaviour {
         GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().SetIsMoveX(true);
         GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().SetIsMoveY(true);
         GameObject.FindWithTag("Timer").GetComponent<TimerController>().StartTimer();
+
+        EventSystem.current.GetComponent<BackController>().OnAbleKey(); // pause button activate
     }
 }

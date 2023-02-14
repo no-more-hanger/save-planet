@@ -280,11 +280,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690015, guid: ebeabfb2b26db0e41a6ef9978b719526, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690015, guid: ebeabfb2b26db0e41a6ef9978b719526, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690015, guid: ebeabfb2b26db0e41a6ef9978b719526, type: 3}
       propertyPath: m_LocalPosition.x
@@ -401,6 +401,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1745906274059072078, guid: 1de5e4a577999524188de1afb1d4cba0, type: 3}
+      propertyPath: buttonBgm
+      value: 
+      objectReference: {fileID: 8300000, guid: d0c601ac438121c4b8a30a392bfda2ba, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1de5e4a577999524188de1afb1d4cba0, type: 3}
 --- !u!1 &620441364 stripped
@@ -780,6 +784,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6084842728554877326, guid: b1db9ab2b4210db4c89e046bc4fa71f5, type: 3}
   m_PrefabInstance: {fileID: 6084842729804067176}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1438064871 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6084842728554877327, guid: b1db9ab2b4210db4c89e046bc4fa71f5, type: 3}
+  m_PrefabInstance: {fileID: 6084842729804067176}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1442865304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -913,6 +928,7 @@ GameObject:
   - component: {fileID: 1526640877}
   - component: {fileID: 1526640876}
   - component: {fileID: 1526640875}
+  - component: {fileID: 1526640878}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -970,6 +986,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1526640878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526640874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b308db2c6d6024fbc0c3940da58dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backBtn: {fileID: 1438064871}
 --- !u!1001 &1546633220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1311,11 +1340,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1513528857825229056, guid: 4cfca9f8a172b3c4aa43f141e425db61, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 1513528857825229056, guid: 4cfca9f8a172b3c4aa43f141e425db61, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 1513528857825229056, guid: 4cfca9f8a172b3c4aa43f141e425db61, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2026,11 +2055,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690015, guid: f7c8fd85001b7044a925e55ea3c2a3eb, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690015, guid: f7c8fd85001b7044a925e55ea3c2a3eb, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 6802744242753690015, guid: f7c8fd85001b7044a925e55ea3c2a3eb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2119,11 +2148,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9104273107548390849, guid: e9ab2a5088d0c5a4999fbaf0c313029c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 9104273107548390849, guid: e9ab2a5088d0c5a4999fbaf0c313029c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 3000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 9104273107548390849, guid: e9ab2a5088d0c5a4999fbaf0c313029c, type: 3}
       propertyPath: m_LocalPosition.x

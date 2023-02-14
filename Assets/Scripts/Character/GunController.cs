@@ -5,6 +5,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour {
     public AnimationCurve animationCurve;   // 상하로 흔듦
     public GameObject bulletPrefab; // bullet
+    public AudioClip soundEffect;
 
     private float floatingY = 0.25f;
     private float loopTime = 0.5f;
@@ -37,7 +38,8 @@ public class GunController : MonoBehaviour {
     }
 
     private void Shooting() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(KeyCode.A)) {
+            SoundManager._soundInstance.OnAudio(soundEffect);
             gameObject.transform.parent.gameObject.GetComponent<BaseCharacter>().ShootGun();
             GameObject temp = Instantiate(bulletPrefab, gameObject.transform.parent.transform.position, Quaternion.identity); // create bullet
             temp.transform.localEulerAngles = new Vector3(0f, 0f, 90f);

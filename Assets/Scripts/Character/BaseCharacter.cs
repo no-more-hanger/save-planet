@@ -18,6 +18,7 @@ public class BaseCharacter : MonoBehaviour {
 
     private float originSpeed;              // 원래 속도
     private float speed;                    // 현재 속도
+    private float pedalSpeed;               // 페달 속도
 
     private float damage;                   // 데미지
     private bool isGun;                     // 총 소지 여부
@@ -160,10 +161,11 @@ public class BaseCharacter : MonoBehaviour {
 
         // 이동 제어
         float x = isMoveX ? Input.GetAxisRaw("Horizontal") : 0;   // "Horizontal" : 우 방향키(1), 좌 방향키(-1) 리턴
-        float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
+        //float y = isMoveY ? Input.GetAxisRaw("Vertical") : 0;     // "Vertical"   : 상 방향키(1), 하 방향키(-1) 리턴
 
+        float ballonSpeed = 0f;
         if (isBalloon) {
-            y += balloonCnt * balloonCoefficient;
+            ballonSpeed = balloonCnt * balloonCoefficient;
         }
 
         // 외계인 효과 적용
@@ -171,10 +173,10 @@ public class BaseCharacter : MonoBehaviour {
 
         // 한 프레임 당 이동거리 계산
         float moveX = x * speed * Time.deltaTime;
-        if ((y > 0 && transform.position.y > limitY) || y < 0) {
-            y = 0;
+        if (transform.position.y > limitY) {
+            pedalSpeed = 0f;
         }
-        float moveY = (y * speed - gravityScale) * Time.deltaTime; // 아래로는 못 가게 막기
+        float moveY = ((ballonSpeed + speed) * pedalSpeed - gravityScale) * Time.deltaTime; // 아래로는 못 가게 막기
 
         // Idle
         if (x == 0.0f) {
@@ -335,6 +337,11 @@ public class BaseCharacter : MonoBehaviour {
         if (bulletCnt == 0) {
             PutDownGun();
         }
+    }
+
+    // 페달 스피드 설정
+    public void SetPedalSpeed(float value) {
+        pedalSpeed = value;
     }
 
     // 풍선 생성하기

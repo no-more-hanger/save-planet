@@ -104,6 +104,7 @@ public class SettingManager : MonoBehaviour {
     public void OnPauseGame() {
         Time.timeScale = 0f;
         GameObject.FindWithTag("Player").GetComponent<BaseCharacter>().enabled = false;
+        GameObject.FindWithTag("Player").GetComponent<PedalSpeed>().enabled = false;
         GameObject.FindWithTag("Timer").GetComponent<TimerController>().StopTimer();
     }
 
@@ -113,6 +114,7 @@ public class SettingManager : MonoBehaviour {
         temp.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
 
         EventSystem.current.GetComponent<BackController>().OnNotAbleKey(); // pause button deactivate
+        GameObject.FindWithTag("Player").GetComponent<PedalSpeed>().enabled = false; // pedal deactivate
     }
 
     // continue game
@@ -124,5 +126,6 @@ public class SettingManager : MonoBehaviour {
         GameObject.FindWithTag("Timer").GetComponent<TimerController>().StartTimer();
 
         EventSystem.current.GetComponent<BackController>().OnAbleKey(); // pause button activate
+        GameObject.FindWithTag("Player").GetComponent<PedalSpeed>().enabled = true; // pedal activate
     }
 }

@@ -58,8 +58,10 @@ MonoBehaviour:
   - -0.5
   - 0.5
   - 2.5
-  minIntervalY: 1
-  maxIntervalY: 2.5
+  minIntervalY: 2
+  maxIntervalY: 4
+  minIntervalSmallY: -1
+  maxIntervalSmallY: 1
 --- !u!1 &3115510442723414396
 GameObject:
   m_ObjectHideFlags: 0

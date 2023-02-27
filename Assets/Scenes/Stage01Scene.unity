@@ -1573,19 +1573,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemNum
-      value: 70
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: maxIntervalY
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: minIntervalY
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: backgroundNum
-      value: 5
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: backgroundBlack
@@ -1594,6 +1594,14 @@ PrefabInstance:
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: backgroudRoutine
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
+      propertyPath: maxIntervalSmallY
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
+      propertyPath: minIntervalSmallY
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPrefabs.Array.size

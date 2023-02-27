@@ -33,6 +33,7 @@ public class BaseStage : MonoBehaviour {
         FadeIn(fadeTime); // fade in
 
         EventSystem.current.GetComponent<BackController>().OnNotAbleKey(); // pause button deactive
+        player.GetComponent<PedalSpeed>().enabled = false; // pedal deactive
     }
 
     // create background

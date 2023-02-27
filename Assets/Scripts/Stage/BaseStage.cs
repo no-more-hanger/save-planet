@@ -20,6 +20,7 @@ public class BaseStage : MonoBehaviour {
     [SerializeField] protected float[] itemPercentage; // item percentage
     [SerializeField] protected float[] listIntervalX; // interval x
     [SerializeField] protected float minIntervalY, maxIntervalY; // interval between items
+    [SerializeField] protected float minIntervalSmallY, maxIntervalSmallY; // interval between items in same row
 
 
     protected void Start() {
@@ -112,7 +113,8 @@ public class BaseStage : MonoBehaviour {
                 // set creating point random
                 float x = Random.Range(listIntervalX[i], listIntervalX[i + 1]);
                 x = GameStaticData._dataInstance.GetResponsivePoint(x);
-                Vector2 creatingPoint = new Vector2(x, y);
+                float intervalY = Random.Range(minIntervalSmallY, maxIntervalSmallY);
+                Vector2 creatingPoint = new Vector2(x, y + intervalY);
 
                 // set item type by item percentage
                 int itemType = ChooseItem(previousItem);

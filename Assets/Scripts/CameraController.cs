@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour {
-    private Vector3 offset = new Vector3(0, 0.025f, -10);
-    private float delay = 0.01f; // 작을 수록 천천히 플레이어에게 도달
+    private Vector3 offset = new Vector3(0, 0.075f, -10);
+    private float delay = 0.04f; // 작을 수록 천천히 플레이어에게 도달
 
     [SerializeField]
     private Transform target;

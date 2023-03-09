@@ -1665,7 +1665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[1]
-      value: 25
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[2]
@@ -1673,11 +1673,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[3]
-      value: 7
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[4]
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[5]
@@ -1685,7 +1685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[6]
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[7]

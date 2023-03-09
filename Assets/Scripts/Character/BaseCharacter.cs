@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class BaseCharacter : MonoBehaviour {
     private string LAYER_PLAYER = "Player";
@@ -23,7 +21,7 @@ public class BaseCharacter : MonoBehaviour {
     private float damage;                   // 데미지
     private bool isGun;                     // 총 소지 여부
     private int bulletCnt;                  // bullet cnt
-    const int bulletMaxCnt = 10;         // bullet max cnt
+    const int bulletMaxCnt = 15;         // bullet max cnt
     private int balloonCnt;                 // 소지한 풍선 개수
 
     [SerializeField]
@@ -33,6 +31,8 @@ public class BaseCharacter : MonoBehaviour {
 
     [SerializeField]
     private ParticleSystem effect;          // 이펙트 | 공격 받은 후, 거품 or 피 효과
+    [SerializeField]
+    private ParticleSystem healEffect;      // 이펙트 | Heal 효과
 
     private float itemTimer;                // 아이템 지속 시간
 
@@ -292,7 +292,7 @@ public class BaseCharacter : MonoBehaviour {
 
     public IEnumerator GetHealedRoutine() {
         for (int i = 0; i <= effectDuration; i++) {
-            spriteRenderer.color = new Color(0.01f * i, 1, 0.01f * i);  // 초록색
+            spriteRenderer.color = new Color(204f / 255f + (255f - 204f) * i / effectDuration, 1f, 1f);  // 초록색
             yield return new WaitForSeconds(0.01f);
         }
     }
@@ -310,7 +310,13 @@ public class BaseCharacter : MonoBehaviour {
 
     // 데미지 치료
     public void Heal(float heal) {
-        damage -= heal;
+        if (damage >= heal) {
+            damage -= heal;
+        }
+        else {
+            damage = 0;
+        }
+        healEffect.Play(); // 힐 이펙트
         StartCoroutine(GetHealedRoutine());
     }
 

@@ -195,6 +195,18 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4c97387e50a1c65478202c01d4f66465, type: 2}
+    - target: {fileID: 5237924438911877298, guid: ca41a837cc805e949b1a6b1070fdcdc7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237924438911877298, guid: ca41a837cc805e949b1a6b1070fdcdc7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5237924438911877298, guid: ca41a837cc805e949b1a6b1070fdcdc7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8657997095670868521, guid: ca41a837cc805e949b1a6b1070fdcdc7, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1314,11 +1326,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: maxIntervalY
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: minIntervalY
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: backgroundNum
@@ -1398,7 +1410,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[0]
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[1]
@@ -1410,7 +1422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[3]
-      value: 40
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3115510442298643113, guid: ef40f1fcd5a02bb4b99afd20606fff30, type: 3}
       propertyPath: itemPercentage.Array.data[4]

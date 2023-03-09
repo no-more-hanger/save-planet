@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5642321391892911056}
   - component: {fileID: 5642321391892911070}
   - component: {fileID: 5642321391892911061}
+  - component: {fileID: -2085801228844110461}
   m_Layer: 9
   m_Name: Helium
   m_TagString: Item
@@ -130,7 +131,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5642321391892911071}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7343c2ce5ae84bd7b0b7c1e294a0ad6, type: 3}
   m_Name: 
@@ -140,3 +141,18 @@ MonoBehaviour:
   destroyDelay: 0
   duration: 7
   speedVariation: 2.5
+--- !u!114 &-2085801228844110461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5642321391892911071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61a4ded8650774d45a00d1635db96b4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: {fileID: 8300000, guid: c93b72d74be8ac64a90608a3be938aca, type: 3}
+  particle: {fileID: 0}
+  destroyDelay: 0

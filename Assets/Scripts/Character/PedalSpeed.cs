@@ -31,7 +31,7 @@ public class PedalSpeed : MonoBehaviour {
                 CalcInterval(keyValue);
             }
         }
-        else if (intervalT > 0f && time > intervalT) {
+        else if (intervalT > 0f && time > intervalT * 2f) {
             Debug.Log("간격만큼 시간 지나서 속도 감소한다");
             time = 0f; // time init
             keyValue /= 2; // speed down 50%

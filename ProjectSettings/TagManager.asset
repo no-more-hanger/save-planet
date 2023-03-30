@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Obstacle
+  - Timer
+  - Disaster
+  - Item
+  - Goal
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -11,14 +17,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Disaster
+  - Obstacle
+  - Item
+  - Goal
+  - Bullet
+  - PlayerDamaged
+  - Effect
   - 
   - 
   - 
@@ -38,6 +44,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 3604445845
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Screen
+    uniqueID: 4289379701
     locked: 0
